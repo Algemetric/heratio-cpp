@@ -4,6 +4,8 @@
 #include <NTL/vector.h>
 #include <vector>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "rational.h"
 
 using namespace std;
@@ -18,10 +20,9 @@ public:
   int beta;
   int mu;
   int lambda;
-  int eta_star;
   int eta;
-  int rho;
   int gamma;
+  int sigma;
 
   ZZ q0;
   ZZ p;
@@ -37,13 +38,12 @@ public:
     this->alpha = alpha_;
     this->beta = beta_;
     this->lambda = lambda_;
-    this->rho = this->lambda * int(log(this->lambda));
-    int eta_star1 = power_long(this->lambda, 2) + this->rho * this->lambda;
-    int eta_star2 = int(log(eta_star1));
-    this->eta_star = (eta_star1 * eta_star2) / 100;
-    this->gamma = (power_long(this->eta_star, 2) * int(log(this->lambda)) + 1);
-    this->eta = int(9999 * ceil(this->gamma / 10000) / this->alpha);
+
+    this->gamma = power_long(this->lambda, 4) / 500;
+    this->eta = power_long(this->lambda, 2);
     this->mu = int((this->gamma - this->alpha * this->eta) / this->beta);
+    this->sigma = rand() % 500;
+
     this->q0 = generate_q(this->mu);
     this->p = generate_p(this->q0, this->eta);
     this->p_to_alpha = power(this->p, this->alpha);
@@ -114,13 +114,14 @@ public:
       result += MulMod(v1[i], v2[i], prime);
     }
 
-    return result;
+    return result % prime;
   }
 
 private:
   ZZ generate_q(int mu)
   {
-    return GenPrime_ZZ(mu, 80);
+    // return GenPrime_ZZ(mu, 80);
+    return RandomLen_ZZ(mu);
   }
 
   ZZ generate_p(ZZ q0, int eta)

@@ -14,10 +14,9 @@ void Inspect(Heratio heratio)
   cout << "alpha = " << heratio.alpha << endl;
   cout << "beta = " << heratio.beta << endl;
   cout << "lambda = " << heratio.lambda << "\n\n";
-  cout << "rho = " << heratio.rho << endl;
-  cout << "eta_star = " << heratio.eta_star << endl;
   cout << "eta = " << heratio.eta << endl;
   cout << "mu = " << heratio.mu << endl;
+  cout << "sigma = " << heratio.sigma << endl;
   cout << "gamma = " << heratio.gamma << "\n\n";
   cout << "q0_bits = " << NumBits(heratio.q0) << endl;
   cout << "p_bits = " << NumBits(heratio.p) << endl;

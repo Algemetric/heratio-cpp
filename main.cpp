@@ -15,7 +15,7 @@ int main()
 {
   const int d = 2;
   const int t = 8;
-  const int alpha = 2;
+  const int alpha = 8;
   const int beta = 2;
   const int lambda = 72;
 
@@ -44,14 +44,26 @@ int main()
   Rational m_prime1 = Rational(ZZ(3), ZZ(5));
   Rational m_prime2 = Rational(ZZ(7), ZZ(4));
 
+  cout << "m_prime1 = " << m_prime1.ToString() << endl;
+  cout << "m_prime2 = " << m_prime2.ToString() << endl;
+
   ZZ h1 = hensel_code.Encode(m_prime1);
   ZZ h2 = hensel_code.Encode(m_prime2);
+
+  cout << "Encoded m_prime1 and m_prime2 (h1 and h2) " << endl;
 
   ZZ c1 = heratio.Encrypt(h1);
   ZZ c2 = heratio.Encrypt(h2);
 
+  cout << "Encrypted h1 and h2 (c1 and c2) " << endl;
+
   ZZ c1_plus_c2 = heratio.Add(c1, c2);
+
+  cout << "Computed c1_plus_c2 " << endl;
+
   ZZ c1_times_c2 = heratio.Mul(c1, c2);
+
+  cout << "Computed c1_times_c2 " << endl;
 
   ZZ h1_plus_h2_r = heratio.Decrypt(c1_plus_c2);
   ZZ h1_times_h2_r = heratio.Decrypt(c1_times_c2);
@@ -59,8 +71,6 @@ int main()
   Rational m_prime1_plus_m_prime2 = hensel_code.Decode(h1_plus_h2_r);
   Rational m_prime1_times_m_prime2 = hensel_code.Decode(h1_times_h2_r);
 
-  cout << "m_prime1 = " << m_prime1.ToString() << endl;
-  cout << "m_prime2 = " << m_prime2.ToString() << endl;
   cout << "m_prime1_plus_m_prime2 = " << m_prime1_plus_m_prime2.ToString() << endl;
   cout << "m_prime1_times_m_prime2 = " << m_prime1_times_m_prime2.ToString() << "\n\n";
 
@@ -98,10 +108,14 @@ int main()
   Inspect(v2_r);
 
   cout << "\n\nCompute encrypted dot product:" << endl;
-  ZZ encrypted_dot_product = heratio.DotProduct(cvh1, cvh2, heratio.p_star);
+  ZZ encrypted_dot_product = heratio.DotProduct(cvh1, cvh2, heratio.x0);
   ZZ decrypted_dot_product = heratio.Decrypt(encrypted_dot_product);
 
   cout << "decrypted_dot_product = " << decrypted_dot_product << endl;
+
+  Rational decoded_dot_product = hensel_code.Decode(decrypted_dot_product);
+
+  cout << "decoded_dot_product = " << decoded_dot_product.ToString() << endl;
 
   return 0;
 }
