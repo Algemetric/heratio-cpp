@@ -157,7 +157,7 @@ private:
     long expression1 = (this->beta * this->mu - long(log(this->t))) / this->d;
     long expression2 = (this->beta * this->mu - 4) / 2;
     long p_star_bits = long(min(expression1, expression2));
-    ZZ p_star = GenPrime_ZZ(this->mu, 80);
+    ZZ p_star = GenPrime_ZZ(p_star_bits, 80);
 
     return p_star;
   }
