@@ -31,21 +31,20 @@ public:
 
   Rational Decode(ZZ h)
   {
-    int length = 100;
     int i = 0;
     ZZ big_n = SqrRoot((prime - 1) / 2);
     Vec<ZZ> x;
-    x.SetLength(length);
+    x.SetLength(2);
     x[i] = power(this->prime, this->r);
     x[i + 1] = h;
 
     Vec<ZZ> y;
-    y.SetLength(length);
+    y.SetLength(2);
     y[i] = ZZ(0);
     y[i + 1] = ZZ(1);
 
     Vec<ZZ> z;
-    z.SetLength(length);
+    z.SetLength(2);
     z[i] = ZZ(1);
     z[i + 1] = ZZ(0);
     ZZ q;
@@ -53,6 +52,9 @@ public:
 
     while (x[i] > big_n)
     {
+      x.SetLength(x.length() + 2);
+      y.SetLength(y.length() + 2);
+      z.SetLength(z.length() + 2);
       q = x[i - 1] / x[i];
       x[i + 1] = x[i - 1] - q * x[i];
       y[i + 1] = y[i - 1] - q * y[i];

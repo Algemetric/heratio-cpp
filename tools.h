@@ -43,3 +43,28 @@ vector<Rational> GenerateRandomVector(const int size, const ZZ upperbound)
 
   return v;
 }
+
+Vec<ZZ> CreateVectorFromUniqueValue(long size, ZZ value)
+{
+  Vec<ZZ> v;
+  v.SetLength(size);
+
+  for (long i = 0; i < size; i++)
+  {
+    v[i] = value;
+  }
+
+  return v;
+}
+
+Rational DotProduct(vector<Rational> v1, vector<Rational> v2)
+{
+  Rational result = Rational(ZZ(0), ZZ(1));
+
+  for (long i = 0; i < v1.size(); i++)
+  {
+    result = result + v1[i] * v2[i];
+  }
+
+  return result;
+}

@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <vector>
 using namespace NTL;
 using namespace std;
 
@@ -26,3 +27,13 @@ struct Rational
     return buffer.str();
   }
 };
+
+Rational operator+(Rational rat1, Rational rat2)
+{
+  return Rational(rat1.numerator * rat2.denominator + rat1.denominator * rat2.numerator, rat1.denominator * rat2.denominator);
+}
+
+Rational operator*(Rational rat1, Rational rat2)
+{
+  return Rational(rat1.numerator * rat2.numerator, rat1.denominator * rat2.denominator);
+}

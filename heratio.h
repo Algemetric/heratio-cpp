@@ -14,15 +14,15 @@ using namespace NTL;
 class Heratio
 {
 public:
-  int d;
-  int t;
-  int alpha;
-  int beta;
-  int mu;
-  int lambda;
-  int eta;
-  int gamma;
-  int sigma;
+  long d;
+  long t;
+  long alpha;
+  long beta;
+  long mu;
+  long lambda;
+  long eta;
+  long gamma;
+  long sigma;
 
   ZZ q0;
   ZZ p;
@@ -31,7 +31,7 @@ public:
   ZZ p_star;
   ZZ x0;
 
-  void KeyGen(const int d_, const int t_, const int alpha_, const int beta_, const int lambda_)
+  void KeyGen(const long d_, const long t_, const long alpha_, const long beta_, const long lambda_)
   {
     this->d = d_;
     this->t = t_;
@@ -39,24 +39,23 @@ public:
     this->beta = beta_;
     this->lambda = lambda_;
 
-    this->gamma = power_long(this->lambda, 4) / 500;
-    this->eta = power_long(this->lambda, 2);
-    this->mu = int((this->gamma - this->alpha * this->eta) / this->beta);
-    this->sigma = rand() % 500;
+    this->gamma = ComputeGamma();
+    this->eta = ComputeEta();
+    this->mu = ComputeMu();
+    this->sigma = ComputeSigma();
 
-    this->q0 = generate_q(this->mu);
-    this->p = generate_p(this->q0, this->eta);
-    this->p_to_alpha = power(this->p, this->alpha);
-    this->q0_to_beta = power(this->q0, this->beta);
-    this->x0 = this->p_to_alpha * this->q0_to_beta;
-    this->p_star = generate_p_star(this->d, this->t, this->beta, this->mu);
+    this->q0 = GenerateQ();
+    this->p = GenerateP();
+    this->p_to_alpha = ComputePToAlpha();
+    this->q0_to_beta = ComputeQToBeta();
+    this->x0 = ComputeX0();
+    this->p_star = GeneratePStar();
   }
 
   ZZ Encrypt(ZZ m)
   {
-    ZZ r_bound = power2_ZZ(500);
-    ZZ r = RandomBnd(r_bound);
-    ZZ two_to_lambda = power2_ZZ(lambda);
+    ZZ r = RandomLen_ZZ(this->sigma);
+    ZZ two_to_lambda = power2_ZZ(this->lambda);
     ZZ delta = RandomBnd(two_to_lambda / this->p_to_alpha);
     ZZ c = delta * this->p_to_alpha + m + r * this->q0_to_beta;
 
@@ -118,29 +117,64 @@ public:
   }
 
 private:
-  ZZ generate_q(int mu)
+  long ComputeGamma()
+  {
+    return power_long(this->lambda, 4) / 500;
+  }
+
+  long ComputeEta()
+  {
+    return power_long(this->lambda, 2);
+  }
+
+  long ComputeMu()
+  {
+    return long((this->gamma - this->alpha * this->eta) / this->beta);
+  }
+
+  long ComputeSigma()
+  {
+    return ((this->alpha * this->eta - long(log2(this->t)) - this->d * this->beta * this->mu - this->d) / this->d) - 1;
+  }
+
+  ZZ GenerateQ()
   {
     // return GenPrime_ZZ(mu, 80);
-    return RandomLen_ZZ(mu);
+    return RandomLen_ZZ(this->mu);
   }
 
-  ZZ generate_p(ZZ q0, int eta)
+  ZZ GenerateP()
   {
-    ZZ p = q0;
-    while (GCD(q0, p) != 1)
+    ZZ p_ = this->q0;
+    while (GCD(this->q0, p_) != 1)
     {
-      p = RandomLen_ZZ(eta);
+      p_ = RandomLen_ZZ(this->eta);
     }
-    return p;
+    return p_;
   }
 
-  ZZ generate_p_star(int d, int t, int beta, int mu)
+  ZZ GeneratePStar()
   {
-    int expression1 = (beta * mu - int(log(t))) / d;
-    int expression2 = (beta * mu - 4) / 2;
-    int p_star_bits = int(min(expression1, expression2));
-    ZZ p_star = GenPrime_ZZ(mu, 80);
+    long expression1 = (this->beta * this->mu - long(log(this->t))) / this->d;
+    long expression2 = (this->beta * this->mu - 4) / 2;
+    long p_star_bits = long(min(expression1, expression2));
+    ZZ p_star = GenPrime_ZZ(this->mu, 80);
 
     return p_star;
+  }
+
+  ZZ ComputePToAlpha()
+  {
+    return power(this->p, this->alpha);
+  }
+
+  ZZ ComputeQToBeta()
+  {
+    return power(this->q0, this->beta);
+  }
+
+  ZZ ComputeX0()
+  {
+    return this->p_to_alpha * this->q0_to_beta;
   }
 };

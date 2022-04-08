@@ -75,9 +75,9 @@ int main()
   cout << "m_prime1_times_m_prime2 = " << m_prime1_times_m_prime2.ToString() << "\n\n";
 
   cout << "Generate two random vectors:" << endl;
-  vector<Rational> v1 = GenerateRandomVector(4, ZZ(30));
+  vector<Rational> v1 = GenerateRandomVector(6, ZZ(30));
   Inspect(v1);
-  vector<Rational> v2 = GenerateRandomVector(4, ZZ(30));
+  vector<Rational> v2 = GenerateRandomVector(6, ZZ(30));
   Inspect(v2);
 
   cout << "\n\nEncode vectors:" << endl;
@@ -111,11 +111,14 @@ int main()
   ZZ encrypted_dot_product = heratio.DotProduct(cvh1, cvh2, heratio.x0);
   ZZ decrypted_dot_product = heratio.Decrypt(encrypted_dot_product);
 
-  cout << "decrypted_dot_product = " << decrypted_dot_product << endl;
+  // Uncomment the line below to see the value. It will be large.
+  // cout << "decrypted_dot_product = " << decrypted_dot_product << endl;
 
   Rational decoded_dot_product = hensel_code.Decode(decrypted_dot_product);
+  Rational plain_dot_product = DotProduct(v1, v2);
 
   cout << "decoded_dot_product = " << decoded_dot_product.ToString() << endl;
+  cout << "plain_dot_product = " << plain_dot_product.ToString() << endl;
 
   return 0;
 }
