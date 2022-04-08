@@ -139,8 +139,7 @@ private:
 
   ZZ GenerateQ()
   {
-    // return GenPrime_ZZ(mu, 80);
-    return RandomLen_ZZ(this->mu);
+    return GenPrime_ZZ(this->mu, 80);
   }
 
   ZZ GenerateP()
@@ -148,7 +147,7 @@ private:
     ZZ p_ = this->q0;
     while (GCD(this->q0, p_) != 1)
     {
-      p_ = RandomLen_ZZ(this->eta);
+      p_ = GenPrime_ZZ(this->eta, 80);
     }
     return p_;
   }

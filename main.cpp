@@ -75,9 +75,9 @@ int main()
   cout << "m_prime1_times_m_prime2 = " << m_prime1_times_m_prime2.ToString() << "\n\n";
 
   cout << "Generate two random vectors:" << endl;
-  vector<Rational> v1 = GenerateRandomVector(6, ZZ(30));
+  vector<Rational> v1 = GenerateRandomVector(8, ZZ(30));
   Inspect(v1);
-  vector<Rational> v2 = GenerateRandomVector(6, ZZ(30));
+  vector<Rational> v2 = GenerateRandomVector(8, ZZ(30));
   Inspect(v2);
 
   cout << "\n\nEncode vectors:" << endl;
