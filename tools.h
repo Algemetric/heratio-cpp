@@ -68,3 +68,15 @@ Rational DotProduct(vector<Rational> v1, vector<Rational> v2)
 
   return result;
 }
+
+ZZ DotProduct(Vec<ZZ> v1, Vec<ZZ> v2)
+{
+  ZZ result = ZZ(0);
+
+  for (long i = 0; i < v1.length(); i++)
+  {
+    result += v1[i], v2[i];
+  }
+
+  return result;
+}
