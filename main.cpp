@@ -18,6 +18,7 @@ int main()
   const int alpha = 8;
   const int beta = 2;
   const int lambda = 72;
+  const int dimension = 2;
 
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
@@ -75,9 +76,9 @@ int main()
   cout << "m_prime1_times_m_prime2 = " << m_prime1_times_m_prime2.ToString() << "\n\n";
 
   cout << "Generate two random vectors:" << endl;
-  vector<Rational> v1 = GenerateRandomVector(8, ZZ(30));
+  vector<Rational> v1 = GenerateRandomVector(dimension, ZZ(30));
   Inspect(v1);
-  vector<Rational> v2 = GenerateRandomVector(8, ZZ(30));
+  vector<Rational> v2 = GenerateRandomVector(dimension, ZZ(30));
   Inspect(v2);
 
   cout << "\n\nEncode vectors:" << endl;
@@ -119,6 +120,19 @@ int main()
 
   cout << "decoded_dot_product = " << decoded_dot_product.ToString() << endl;
   cout << "plain_dot_product = " << plain_dot_product.ToString() << endl;
+
+  cout << "\n\nTesting the correctness bound:" << endl;
+
+  Vec<ZZ> vt1 = CreateVectorFromUniqueValue(dimension, heratio.p_star - 1);
+  Vec<ZZ> vt2 = CreateVectorFromUniqueValue(dimension, heratio.p_star - 1);
+  ZZ test_dot_product = DotProduct(vt1, vt2);
+
+  Vec<ZZ> cvt1 = heratio.EncryptVector(vt1);
+  Vec<ZZ> cvt2 = heratio.EncryptVector(vt2);
+  ZZ encrypted_test_dot_product = heratio.DotProduct(cvt1, cvt2, heratio.x0);
+  ZZ decrypted_test_dot_product = heratio.Decrypt(encrypted_test_dot_product);
+
+  cout << "Is test_dot_product == decrypted_test_dot_product? " << (test_dot_product == decrypted_test_dot_product) << endl;
 
   return 0;
 }
