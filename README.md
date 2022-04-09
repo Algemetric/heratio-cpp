@@ -5,7 +5,7 @@ Heratio: Algemetric's Fully homomorphic encryption scheme with Hensel Codes
 
 ```bash
 make
-./heratio_demo
+./bin/heratio_demo
 ```
 
 Cleaning up:
