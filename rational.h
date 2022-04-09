@@ -1,39 +1,15 @@
 #pragma once
 
-#include <NTL/ZZ.h>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <vector>
-using namespace NTL;
-using namespace std;
-
 struct Rational
 {
-  ZZ numerator;
-  ZZ denominator;
+  NTL::ZZ numerator;
+  NTL::ZZ denominator;
 
-  Rational(ZZ numerator, ZZ denominator)
-  {
-    ZZ g = GCD(numerator, denominator);
-    this->numerator = numerator / g;
-    this->denominator = denominator / g;
-  }
+  Rational(NTL::ZZ numerator, NTL::ZZ denominator);
 
-  string ToString()
-  {
-    stringstream buffer;
-    buffer << this->numerator << "/" << this->denominator;
-    return buffer.str();
-  }
+  std::string ToString();
+
+  Rational operator+(Rational ohter);
+
+  Rational operator*(Rational other);
 };
-
-Rational operator+(Rational rat1, Rational rat2)
-{
-  return Rational(rat1.numerator * rat2.denominator + rat1.denominator * rat2.numerator, rat1.denominator * rat2.denominator);
-}
-
-Rational operator*(Rational rat1, Rational rat2)
-{
-  return Rational(rat1.numerator * rat2.numerator, rat1.denominator * rat2.denominator);
-}

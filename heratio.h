@@ -1,16 +1,5 @@
 #pragma once
 
-#include <NTL/ZZ.h>
-#include <NTL/vector.h>
-#include <vector>
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
-#include "rational.h"
-
-using namespace std;
-using namespace NTL;
-
 class Heratio
 {
 public:
@@ -24,156 +13,47 @@ public:
   long gamma;
   long sigma;
 
-  ZZ q0;
-  ZZ p;
-  ZZ p_to_alpha;
-  ZZ q0_to_beta;
-  ZZ p_star;
-  ZZ x0;
+  NTL::ZZ q0;
+  NTL::ZZ p;
+  NTL::ZZ p_to_alpha;
+  NTL::ZZ q0_to_beta;
+  NTL::ZZ p_star;
+  NTL::ZZ x0;
 
-  void KeyGen(const long d_, const long t_, const long alpha_, const long beta_, const long lambda_)
-  {
-    this->d = d_;
-    this->t = t_;
-    this->alpha = alpha_;
-    this->beta = beta_;
-    this->lambda = lambda_;
+  void KeyGen(const long d_, const long t_, const long alpha_, const long beta_, const long lambda_);
 
-    this->gamma = ComputeGamma();
-    this->eta = ComputeEta();
-    this->mu = ComputeMu();
-    this->sigma = ComputeSigma();
+  NTL::ZZ Encrypt(NTL::ZZ m);
 
-    this->q0 = GenerateQ();
-    this->p = GenerateP();
-    this->p_to_alpha = ComputePToAlpha();
-    this->q0_to_beta = ComputeQToBeta();
-    this->x0 = ComputeX0();
-    this->p_star = GeneratePStar();
-  }
+  NTL::ZZ Decrypt(NTL::ZZ c);
 
-  ZZ Encrypt(ZZ m)
-  {
-    ZZ r = RandomLen_ZZ(this->sigma);
-    ZZ two_to_lambda = power2_ZZ(this->lambda);
-    ZZ delta = RandomBnd(two_to_lambda / this->p_to_alpha);
-    ZZ c = delta * this->p_to_alpha + m + r * this->q0_to_beta;
+  NTL::ZZ Add(const NTL::ZZ c1, const NTL::ZZ c2);
 
-    return c;
-  }
+  NTL::ZZ Mul(const NTL::ZZ c1, const NTL::ZZ c2);
 
-  ZZ Decrypt(ZZ c)
-  {
-    ZZ m = c % this->p_to_alpha % this->q0_to_beta;
-    return m;
-  }
+  NTL::Vec<NTL::ZZ> EncryptVector(NTL::Vec<NTL::ZZ> v);
 
-  ZZ Add(const ZZ c1, const ZZ c2)
-  {
-    return AddMod(c1, c2, this->x0);
-  }
+  NTL::Vec<NTL::ZZ> DecryptVector(NTL::Vec<NTL::ZZ> c);
 
-  ZZ Mul(const ZZ c1, const ZZ c2)
-  {
-    return MulMod(c1, c2, this->x0);
-  }
-
-  Vec<ZZ> EncryptVector(Vec<ZZ> v)
-  {
-    Vec<ZZ> c;
-    c.SetLength(v.length());
-
-    for (long i = 0; i < v.length(); i++)
-    {
-      c[i] = Encrypt(v[i]);
-    }
-
-    return c;
-  }
-
-  Vec<ZZ> DecryptVector(Vec<ZZ> c)
-  {
-    Vec<ZZ> v;
-    v.SetLength(c.length());
-
-    for (long i = 0; i < c.length(); i++)
-    {
-      v[i] = Decrypt(c[i]);
-    }
-
-    return v;
-  }
-
-  ZZ DotProduct(Vec<ZZ> v1, Vec<ZZ> v2, ZZ prime)
-  {
-    ZZ result = ZZ(0);
-
-    for (long i = 0; i < v1.length(); i++)
-    {
-      result += MulMod(v1[i], v2[i], prime);
-    }
-
-    return result % prime;
-  }
+  NTL::ZZ DotProduct(NTL::Vec<NTL::ZZ> v1, NTL::Vec<NTL::ZZ> v2, NTL::ZZ prime);
 
 private:
-  long ComputeGamma()
-  {
-    return power_long(this->lambda, 4) / 500;
-  }
+  long ComputeGamma();
 
-  long ComputeEta()
-  {
-    return power_long(this->lambda, 2);
-  }
+  long ComputeEta();
 
-  long ComputeMu()
-  {
-    return long((this->gamma - this->alpha * this->eta) / this->beta);
-  }
+  long ComputeMu();
 
-  long ComputeSigma()
-  {
-    return ((this->alpha * this->eta - long(log2(this->t)) - this->d * this->beta * this->mu - this->d) / this->d) - 1;
-  }
+  long ComputeSigma();
 
-  ZZ GenerateQ()
-  {
-    return GenPrime_ZZ(this->mu, 80);
-  }
+  NTL::ZZ GenerateQ();
 
-  ZZ GenerateP()
-  {
-    ZZ p_ = this->q0;
-    while (GCD(this->q0, p_) != 1)
-    {
-      p_ = GenPrime_ZZ(this->eta, 80);
-    }
-    return p_;
-  }
+  NTL::ZZ GenerateP();
 
-  ZZ GeneratePStar()
-  {
-    long expression1 = (this->beta * this->mu - long(log(this->t))) / this->d;
-    long expression2 = (this->beta * this->mu - 4) / 2;
-    long p_star_bits = long(min(expression1, expression2));
-    ZZ p_star = GenPrime_ZZ(p_star_bits, 80);
+  NTL::ZZ GeneratePStar();
 
-    return p_star;
-  }
+  NTL::ZZ ComputePToAlpha();
 
-  ZZ ComputePToAlpha()
-  {
-    return power(this->p, this->alpha);
-  }
+  NTL::ZZ ComputeQToBeta();
 
-  ZZ ComputeQToBeta()
-  {
-    return power(this->q0, this->beta);
-  }
-
-  ZZ ComputeX0()
-  {
-    return this->p_to_alpha * this->q0_to_beta;
-  }
+  NTL::ZZ ComputeX0();
 };

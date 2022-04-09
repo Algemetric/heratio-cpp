@@ -3,6 +3,7 @@
 #include <NTL/ZZ_p.h>
 #include <math.h>
 #include <vector>
+#include "rational.h"
 #include "heratio.h"
 #include "inspect.h"
 #include "hensel_code.h"
