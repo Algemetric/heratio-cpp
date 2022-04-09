@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "rational.h"
+#include "../include/rational.h"
 
 Rational::Rational(NTL::ZZ numerator, NTL::ZZ denominator)
 {

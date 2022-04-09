@@ -3,3 +3,7 @@
 output
 main
 heratio_demo
+bin/*
+obj/*
+!bin/.gitkeep
+!obj/.gitkeep

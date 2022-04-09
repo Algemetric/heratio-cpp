@@ -1,18 +1,23 @@
 CXX=clang++
+CFLAGS=-g -std=c++11 -Wall -pedantic
 LIBS = ntl
-LINKFLAGS = $(addprefix -l, $(LIBS))
-CXXFLAGS=-g -std=c++11 -Wall -pedantic
-BIN=heratio_demo
+LINKFLAGS = $(addprefix -l,$(LIBS))
+SRC=src
+OBJ=obj
+SRCS=$(wildcard $(SRC)/*.cpp)
+OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 
-SRC=$(wildcard *.cpp)
-OBJ=$(SRC:%.cpp=%.o)
+BINDIR=bin
+APPNAME=heratio_demo
+BIN=$(BINDIR)/$(APPNAME)
 
-all: $(OBJ)
-	$(CXX) -o $(BIN) $^ $(LINKFLAGS)
+all:$(BIN)
 
-%.o: %.c
-	$(CXX) $@ -c $<
+$(BIN):$(OBJS)
+	$(CXX) $(CFLAGS) $(OBJS) -o $(BIN) $(LINKFLAGS)
+
+$(OBJ)/%.o: $(SRC)/%.cpp
+	$(CXX) $(CFLAGS) -c $< -o $@ 
 
 clean:
-	rm -f *.o
-	rm $(BIN)
+	$(RM) -r $(BINDIR)/* $(OBJ)/*

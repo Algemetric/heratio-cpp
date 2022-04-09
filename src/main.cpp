@@ -3,11 +3,11 @@
 #include <NTL/ZZ_p.h>
 #include <math.h>
 #include <vector>
-#include "rational.h"
-#include "heratio.h"
-#include "inspect.h"
-#include "hensel_code.h"
-#include "tools.h"
+#include "../include/rational.h"
+#include "../include/heratio.h"
+#include "../include/inspect.h"
+#include "../include/hensel_code.h"
+#include "../include/tools.h"
 
 using namespace std;
 using namespace NTL;
