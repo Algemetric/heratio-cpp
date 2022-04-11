@@ -17,7 +17,7 @@ public:
   NTL::ZZ p;
   NTL::ZZ p_to_alpha;
   NTL::ZZ q0_to_beta;
-  NTL::ZZ p_star;
+  NTL::ZZ q_star;
   NTL::ZZ x0;
 
   void KeyGen(const long d_, const long t_, const long alpha_, const long beta_, const long lambda_);
@@ -49,7 +49,7 @@ private:
 
   NTL::ZZ GenerateP();
 
-  NTL::ZZ GeneratePStar();
+  NTL::ZZ GenerateQStar();
 
   NTL::ZZ ComputePToAlpha();
 

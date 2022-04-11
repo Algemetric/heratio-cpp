@@ -24,7 +24,7 @@ int main()
   Inspect(heratio);
 
   Rational m_prime = Rational(NTL::ZZ(2), NTL::ZZ(3));
-  HenselCode hensel_code = HenselCode(heratio.p_star, 1);
+  HenselCode hensel_code = HenselCode(heratio.q_star, 1);
   NTL::ZZ h = hensel_code.Encode(m_prime);
   Rational m_prime_r = hensel_code.Decode(h);
 
@@ -121,8 +121,8 @@ int main()
 
   std::cout << "\n\nTesting the correctness bound:" << std::endl;
 
-  NTL::Vec<NTL::ZZ> vt1 = CreateVectorFromUniqueValue(dimension, heratio.p_star - 1);
-  NTL::Vec<NTL::ZZ> vt2 = CreateVectorFromUniqueValue(dimension, heratio.p_star - 1);
+  NTL::Vec<NTL::ZZ> vt1 = CreateVectorFromUniqueValue(dimension, heratio.q_star - 1);
+  NTL::Vec<NTL::ZZ> vt2 = CreateVectorFromUniqueValue(dimension, heratio.q_star - 1);
   NTL::ZZ test_dot_product = DotProduct(vt1, vt2);
 
   NTL::Vec<NTL::ZZ> cvt1 = heratio.EncryptVector(vt1);

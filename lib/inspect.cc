@@ -20,7 +20,7 @@ void Inspect(Heratio heratio)
   std::cout << "p_bits = " << NTL::NumBits(heratio.p) << std::endl;
   std::cout << "q0_to_beta_bits = " << NTL::NumBits(heratio.q0_to_beta) << std::endl;
   std::cout << "p_to_alpha_bits = " << NTL::NumBits(heratio.p_to_alpha) << std::endl;
-  std::cout << "p_star_bits = " << NTL::NumBits(heratio.p_star) << std::endl;
+  std::cout << "q_star_bits = " << NTL::NumBits(heratio.q_star) << std::endl;
   std::cout << "x0_bits = " << NTL::NumBits(heratio.x0) << "\n\n";
 }
 

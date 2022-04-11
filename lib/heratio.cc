@@ -25,7 +25,7 @@ void Heratio::KeyGen(const long d_, const long t_, const long alpha_, const long
   this->p_to_alpha = ComputePToAlpha();
   this->q0_to_beta = ComputeQToBeta();
   this->x0 = ComputeX0();
-  this->p_star = GeneratePStar();
+  this->q_star = GenerateQStar();
 }
 
 NTL::ZZ Heratio::Encrypt(NTL::ZZ m)
@@ -127,14 +127,14 @@ NTL::ZZ Heratio::GenerateP()
   return p_;
 }
 
-NTL::ZZ Heratio::GeneratePStar()
+NTL::ZZ Heratio::GenerateQStar()
 {
-  long expression1 = (this->beta * this->mu - long(log(this->t))) / this->d;
+  long expression1 = (this->beta * this->mu - long(log2(this->t)) - 1) / this->d;
   long expression2 = (this->beta * this->mu - 4) / 2;
-  long p_star_bits = long(std::min(expression1, expression2));
-  NTL::ZZ p_star = NTL::GenPrime_ZZ(p_star_bits, 80);
+  long q_star_bits = long(std::min(expression1, expression2));
+  NTL::ZZ q_star = NTL::GenPrime_ZZ(q_star_bits, 80);
 
-  return p_star;
+  return q_star;
 }
 
 NTL::ZZ Heratio::ComputePToAlpha()
