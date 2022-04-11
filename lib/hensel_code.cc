@@ -2,8 +2,8 @@
 #include <NTL/vector.h>
 #include <vector>
 #include <math.h>
-#include "../include/rational.h"
-#include "../include/hensel_code.h"
+#include "lib/include/rational.h"
+#include "lib/include/hensel_code.h"
 
 HenselCode::HenselCode(NTL::ZZ prime_, int r_)
 {

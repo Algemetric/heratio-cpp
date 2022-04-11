@@ -1,9 +1,10 @@
-.vscode/
+.vscode/*
 *.o
 output
-main
 heratio_demo
 bin/*
 obj/*
-!bin/.gitkeep
-!obj/.gitkeep
+bazel-bin
+bazel-heratio
+bazel-out
+bazel-testlogs

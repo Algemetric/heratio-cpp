@@ -4,8 +4,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../include/rational.h"
-#include "../include/heratio.h"
+#include "lib/include/rational.h"
+#include "lib/include/heratio.h"
 
 void Heratio::KeyGen(const long d_, const long t_, const long alpha_, const long beta_, const long lambda_)
 {

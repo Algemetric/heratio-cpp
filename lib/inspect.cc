@@ -1,8 +1,8 @@
 #include <NTL/ZZ.h>
 #include <vector>
 #include <sstream>
-#include "../include/rational.h"
-#include "../include/heratio.h"
+#include "lib/include/rational.h"
+#include "lib/include/heratio.h"
 
 void Inspect(Heratio heratio)
 {
