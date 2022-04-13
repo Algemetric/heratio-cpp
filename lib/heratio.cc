@@ -129,9 +129,12 @@ NTL::ZZ Heratio::GenerateP()
 
 NTL::ZZ Heratio::GenerateQStar()
 {
-  long expression1 = (this->beta * this->mu - long(log2(this->t)) - 1) / this->d;
-  long expression2 = (this->beta * this->mu - 4) / 2;
-  long q_star_bits = long(std::min(expression1, expression2));
+  // long expression1 = (this->beta * this->mu - long(log2(this->t)) - 1) / this->d;
+  // long expression2 = (this->beta * this->mu - 4) / 2;
+  // long q_star_bits = long(std::min(expression1, expression2));
+  // NTL::ZZ q_star = NTL::GenPrime_ZZ(q_star_bits, 80);
+
+  long q_star_bits = long((this->beta * this->mu - ceil(log2(t)) + 2 * this->d) / d) - 2;
   NTL::ZZ q_star = NTL::GenPrime_ZZ(q_star_bits, 80);
 
   return q_star;

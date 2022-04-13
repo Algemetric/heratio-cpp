@@ -3,6 +3,10 @@
 #include <NTL/ZZ_p.h>
 #include <math.h>
 #include <vector>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <istream>
 #include "lib/include/rational.h"
 #include "lib/include/heratio.h"
 #include "lib/include/inspect.h"
@@ -16,7 +20,7 @@ int main()
   const long alpha = 3;
   const long beta = 1;
   const long lambda = 32;
-  const int dimension = 23;
+  const long dimension = 3;
 
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
