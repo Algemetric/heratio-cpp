@@ -1,7 +1,9 @@
 #pragma once
 
-void Inspect(Heratio heratio);
+std::string StringFromZZ(const NTL::ZZ &x);
 
-void Inspect(std::vector<Rational> v);
+std::string Inspect(Heratio heratio);
 
-void Inspect(NTL::Vec<NTL::ZZ> v);
+std::string Inspect(std::vector<Rational> v);
+
+std::string Inspect(NTL::Vec<NTL::ZZ> v);

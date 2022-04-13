@@ -94,7 +94,7 @@ NTL::ZZ Heratio::DotProduct(NTL::Vec<NTL::ZZ> v1, NTL::Vec<NTL::ZZ> v2, NTL::ZZ 
 
 long Heratio::ComputeGamma()
 {
-  return NTL::power_long(this->lambda, 4) / 500;
+  return NTL::power_long(this->lambda, 4) / 250;
 }
 
 long Heratio::ComputeEta()

@@ -72,7 +72,7 @@ NTL::ZZ DotProduct(NTL::Vec<NTL::ZZ> v1, NTL::Vec<NTL::ZZ> v2)
 
   for (long i = 0; i < v1.length(); i++)
   {
-    result += v1[i], v2[i];
+    result += v1[i] * v2[i];
   }
 
   return result;
