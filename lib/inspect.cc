@@ -16,22 +16,22 @@ std::string StringFromZZ(const NTL::ZZ &x)
 std::string Inspect(Heratio heratio)
 {
   std::string buffer;
-  buffer + "Heratio instance:\n\n";
-  buffer + "d = " + std::to_string(heratio.d) + "\n";
-  buffer + "t = " + std::to_string(heratio.t) + "\n";
-  buffer + "alpha = " + std::to_string(heratio.alpha) + "\n";
-  buffer + "beta = " + std::to_string(heratio.beta) + "\n";
-  buffer + "lambda = " + std::to_string(heratio.lambda) + "\n\n";
-  buffer + "eta = " + std::to_string(heratio.eta) + "\n";
-  buffer + "mu = " + std::to_string(heratio.mu) + "\n";
-  buffer + "sigma = " + std::to_string(heratio.sigma) + "\n";
-  buffer + "gamma = " + std::to_string(heratio.gamma) + "\n\n";
-  buffer + "q0_bits = " + std::to_string(NTL::NumBits(heratio.q0)) + "\n";
-  buffer + "p_bits = " + std::to_string(NTL::NumBits(heratio.p)) + "\n";
-  buffer + "q0_to_beta_bits = " + std::to_string(NTL::NumBits(heratio.q0_to_beta)) + "\n";
-  buffer + "p_to_alpha_bits = " + std::to_string(NTL::NumBits(heratio.p_to_alpha)) + "\n";
-  buffer + "q_star_bits = " + std::to_string(NTL::NumBits(heratio.q_star)) + "\n";
-  buffer + "x0_bits = " + std::to_string(NTL::NumBits(heratio.x0)) + "\n\n";
+  buffer += "Heratio instance:\n\n";
+  buffer += "d = " + std::to_string(heratio.d) + "\n";
+  buffer += "t = " + std::to_string(heratio.t) + "\n";
+  buffer += "alpha = " + std::to_string(heratio.alpha) + "\n";
+  buffer += "beta = " + std::to_string(heratio.beta) + "\n";
+  buffer += "lambda = " + std::to_string(heratio.lambda) + "\n\n";
+  buffer += "eta = " + std::to_string(heratio.eta) + "\n";
+  buffer += "mu = " + std::to_string(heratio.mu) + "\n";
+  buffer += "sigma = " + std::to_string(heratio.sigma) + "\n";
+  buffer += "gamma = " + std::to_string(heratio.gamma) + "\n\n";
+  buffer += "q0_bits = " + std::to_string(NTL::NumBits(heratio.q0)) + "\n";
+  buffer += "p_bits = " + std::to_string(NTL::NumBits(heratio.p)) + "\n";
+  buffer += "q0_to_beta_bits = " + std::to_string(NTL::NumBits(heratio.q0_to_beta)) + "\n";
+  buffer += "p_to_alpha_bits = " + std::to_string(NTL::NumBits(heratio.p_to_alpha)) + "\n";
+  buffer += "q_star_bits = " + std::to_string(NTL::NumBits(heratio.q_star)) + "\n";
+  buffer += "x0_bits = " + std::to_string(NTL::NumBits(heratio.x0)) + "\n\n";
 
   return buffer;
 }

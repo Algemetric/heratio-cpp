@@ -6,6 +6,38 @@
 #include "lib/include/inspect.h"
 #include "gtest/gtest.h"
 
+TEST(InspectTools, InspectHeratio)
+{
+  const long d = 2;
+  const long t = 3;
+  const long alpha = 3;
+  const long beta = 1;
+  const long lambda = 32;
+
+  Heratio heratio;
+  heratio.KeyGen(d, t, alpha, beta, lambda);
+
+  std::string expected_result = "";
+  expected_result += "Heratio instance:\n\n";
+  expected_result += "d = 2\n";
+  expected_result += "t = 3\n";
+  expected_result += "alpha = 3\n";
+  expected_result += "beta = 1\n";
+  expected_result += "lambda = 32\n\n";
+  expected_result += "eta = 1024\n";
+  expected_result += "mu = 1122\n";
+  expected_result += "sigma = 411\n";
+  expected_result += "gamma = 4194\n\n";
+  expected_result += "q0_bits = 1122\n";
+  expected_result += "p_bits = 1024\n";
+  expected_result += "q0_to_beta_bits = 1122\n";
+  expected_result += "p_to_alpha_bits = 3072\n";
+  expected_result += "q_star_bits = 559\n";
+  expected_result += "x0_bits = 4194\n\n";
+
+  EXPECT_EQ(expected_result, Inspect(heratio));
+}
+
 TEST(InspectTools, InspectRationalVector)
 {
   std::vector<Rational> v = {Rational(2, 3), Rational(4, 5), Rational(6, 7)};
