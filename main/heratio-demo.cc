@@ -11,17 +11,17 @@
 
 int main()
 {
-  const int d = 2;
-  const int t = 8;
-  const int alpha = 8;
-  const int beta = 2;
-  const int lambda = 72;
-  const int dimension = 2;
+  const long d = 2;
+  const long t = 3;
+  const long alpha = 3;
+  const long beta = 1;
+  const long lambda = 32;
+  const int dimension = 23;
 
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
 
-  Inspect(heratio);
+  std::cout << Inspect(heratio) << std::endl;
 
   Rational m_prime = Rational(NTL::ZZ(2), NTL::ZZ(3));
   HenselCode hensel_code = HenselCode(heratio.q_star, 1);
@@ -75,9 +75,9 @@ int main()
 
   std::cout << "Generate two random vectors:" << std::endl;
   std::vector<Rational> v1 = GenerateRandomVector(dimension, NTL::ZZ(30));
-  Inspect(v1);
+  std::cout << Inspect(v1) << std::endl;
   std::vector<Rational> v2 = GenerateRandomVector(dimension, NTL::ZZ(30));
-  Inspect(v2);
+  std::cout << Inspect(v2) << std::endl;
 
   std::cout << "\n\nEncode vectors:" << std::endl;
   NTL::Vec<NTL::ZZ> vh1 = hensel_code.EncodeVector(v1);
@@ -103,8 +103,8 @@ int main()
   std::cout << "\n\nDecode vectors:" << std::endl;
   std::vector<Rational> v1_r = hensel_code.DecodeVector(vh1_r);
   std::vector<Rational> v2_r = hensel_code.DecodeVector(vh2_r);
-  Inspect(v1_r);
-  Inspect(v2_r);
+  std::cout << Inspect(v1_r) << std::endl;
+  std::cout << Inspect(v2_r) << std::endl;
 
   std::cout << "\n\nCompute encrypted dot product:" << std::endl;
   NTL::ZZ encrypted_dot_product = heratio.DotProduct(cvh1, cvh2, heratio.x0);

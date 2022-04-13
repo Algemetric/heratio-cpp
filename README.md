@@ -49,7 +49,7 @@ new_local_repository(
 
 The paths above will work if you installed NTL and GMP using Homebrew. Otherwise, just replace these paths by the corresponding paths in your system.
 
-# Building, Running, and Cleaning up
+# Building, Running, Cleaning up, and Testing
 
 Building:
 
@@ -57,7 +57,7 @@ Building:
 bazel build //main:heratio-demo
 ```
 
-Running:
+Running demo:
 
 ```bash
 ./bazel-bin/main/heratio-demo
@@ -68,3 +68,10 @@ Cleaning up:
 ```bash
 bazel clean
 ```
+
+Testing:
+
+```bash
+bazel test --test_output=all //...
+```
+

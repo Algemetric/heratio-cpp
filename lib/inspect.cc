@@ -28,10 +28,7 @@ std::string Inspect(Heratio heratio)
   buffer += "gamma = " + std::to_string(heratio.gamma) + "\n\n";
   buffer += "q0_bits = " + std::to_string(NTL::NumBits(heratio.q0)) + "\n";
   buffer += "p_bits = " + std::to_string(NTL::NumBits(heratio.p)) + "\n";
-  buffer += "q0_to_beta_bits = " + std::to_string(NTL::NumBits(heratio.q0_to_beta)) + "\n";
-  buffer += "p_to_alpha_bits = " + std::to_string(NTL::NumBits(heratio.p_to_alpha)) + "\n";
-  buffer += "q_star_bits = " + std::to_string(NTL::NumBits(heratio.q_star)) + "\n";
-  buffer += "x0_bits = " + std::to_string(NTL::NumBits(heratio.x0)) + "\n\n";
+  buffer += "q_star_bits = " + std::to_string(NTL::NumBits(heratio.q_star)) + "\n\n";
 
   return buffer;
 }

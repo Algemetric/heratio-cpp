@@ -30,10 +30,7 @@ TEST(InspectTools, InspectHeratio)
   expected_result += "gamma = 4194\n\n";
   expected_result += "q0_bits = 1122\n";
   expected_result += "p_bits = 1024\n";
-  expected_result += "q0_to_beta_bits = 1122\n";
-  expected_result += "p_to_alpha_bits = 3072\n";
-  expected_result += "q_star_bits = 559\n";
-  expected_result += "x0_bits = 4194\n\n";
+  expected_result += "q_star_bits = 559\n\n";
 
   EXPECT_EQ(expected_result, Inspect(heratio));
 }
