@@ -12,7 +12,7 @@
 #include "lib/include/inspect.h"
 #include "lib/include/hensel_code.h"
 #include "lib/include/tools.h"
-#include "demo_helpers.h"
+#include "demo/demo_helpers.h"
 
 int main()
 {

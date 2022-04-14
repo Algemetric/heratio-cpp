@@ -7,7 +7,7 @@
 #include "lib/include/tools.h"
 #include "lib/include/heratio.h"
 #include "lib/include/inspect.h"
-#include "main/demo_helpers.h"
+#include "demo/demo_helpers.h"
 
 void SelectParameters(std::string &id, long &d, long &t, long &alpha,
                       long &beta, long &lambda, Heratio &heratio, HenselCode &hensel_code)
