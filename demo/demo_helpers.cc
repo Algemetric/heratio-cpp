@@ -33,7 +33,11 @@ void SelectParameters(std::string &id, long &d, long &t, long &alpha,
 void DisplayDemoTitle(const int &option)
 {
   std::string title;
-  if (option == 1)
+  if (option == -1)
+  {
+    title = "HERatio Demo";
+  }
+  else if (option == 1)
   {
     title = "HERatio: Hensel Code Demo";
   }
@@ -221,6 +225,8 @@ void MainMenu(Heratio heratio, HenselCode hensel_code)
 
   while (option != 9)
   {
+    Clear();
+    DisplayDemoTitle(-1);
     DisplayMainMenu(params);
     std::cin >> option;
 
@@ -283,7 +289,7 @@ void DisplayMainMenu(std::string params)
   std::cout << "4 - Composite Homomorphic operations" << std::endl;
   std::cout << "5 - Show Config" << std::endl;
   std::cout << "6 - Clear" << std::endl;
-  std::cout << "9 - quit\n\n";
+  std::cout << "9 - Quit\n\n";
 }
 
 void DisplayEncodingDecodingResults(Rational rational, Rational rational_decoded, NTL::ZZ h)
