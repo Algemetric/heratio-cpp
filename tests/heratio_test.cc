@@ -35,7 +35,7 @@ TEST_F(HeratioTest, KeyGen)
 
   EXPECT_EQ(heratio.mu, NTL::NumBits(heratio.q0));
   EXPECT_EQ(heratio.eta, NTL::NumBits(heratio.p));
-  EXPECT_EQ(560, NTL::NumBits(heratio.q_star));
+  EXPECT_EQ(561, NTL::NumBits(heratio.q_star));
   EXPECT_EQ(NTL::power(heratio.p, heratio.alpha), heratio.p_to_alpha);
   EXPECT_EQ(NTL::power(heratio.q0, heratio.beta), heratio.q0_to_beta);
   EXPECT_EQ(heratio.p_to_alpha * heratio.q0_to_beta, heratio.x0);

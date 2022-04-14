@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#include <sstream>
 #include "lib/include/rational.h"
 #include "lib/include/heratio.h"
 #include "lib/include/inspect.h"
@@ -76,4 +77,34 @@ NTL::ZZ DotProduct(NTL::Vec<NTL::ZZ> v1, NTL::Vec<NTL::ZZ> v2)
   }
 
   return result;
+}
+
+NTL::ZZ StringToZZ(const std::string &string)
+{
+  NTL::ZZ z;
+  std::stringstream ss(string);
+  ss >> z;
+  return z;
+}
+
+void Clear()
+{
+#if defined _WIN32
+  system("cls");
+#elif defined(__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
+  system("clear");
+#elif defined(__APPLE__)
+  system("clear");
+#endif
+}
+
+std::string endln(const int n)
+{
+  std::string string = "";
+  for (int i = 0; i < n; i++)
+  {
+    string += "\n";
+  }
+
+  return string;
 }

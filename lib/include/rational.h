@@ -5,6 +5,8 @@ struct Rational
   NTL::ZZ numerator;
   NTL::ZZ denominator;
 
+  Rational();
+
   Rational(NTL::ZZ numerator, NTL::ZZ denominator);
 
   Rational(long num, long den);
@@ -21,3 +23,5 @@ struct Rational
 
   bool operator==(Rational other);
 };
+
+Rational StringToRational(std::string string);
