@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 #include <unistd.h>
+#include <chrono>
+#include <iomanip>
 #include "lib/include/rational.h"
 #include "lib/include/hensel_code.h"
 #include "lib/include/tools.h"
@@ -13,4 +15,5 @@
 #include "demo/parameters.h"
 #include "demo/homomorphic.h"
 #include "demo/vector.h"
+#include "demo/performance.h"
 #include "demo/display.h"

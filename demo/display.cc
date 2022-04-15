@@ -27,6 +27,14 @@ void DisplayDemoTitle(const int &option)
   {
     title = "HERatio: Show Config";
   }
+  else if (option == 6)
+  {
+    title = "HERatio: Performance";
+  }
+  else
+  {
+    title = "HERatio: Unknown Selection";
+  }
 
   std::cout << "\n\n===============================================" << std::endl;
   std::cout << title << std::endl;
@@ -80,6 +88,11 @@ void MainMenu(Heratio heratio, HenselCode hensel_code)
     else if (option == 6)
     {
       Clear();
+      PerformanceDemo(heratio, hensel_code);
+    }
+    else if (option == 7)
+    {
+      Clear();
     }
     else if (option == 9)
     {
@@ -102,7 +115,8 @@ void DisplayMainMenu(std::string params)
   std::cout << "3 - Basic Homomorphic operations" << std::endl;
   std::cout << "4 - Composite Homomorphic operations" << std::endl;
   std::cout << "5 - Show Config" << std::endl;
-  std::cout << "6 - Clear" << std::endl;
+  std::cout << "6 - Performance" << std::endl;
+  std::cout << "7 - Clear" << std::endl;
   std::cout << "9 - Quit\n\n";
 }
 
