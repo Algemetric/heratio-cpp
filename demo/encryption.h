@@ -1,0 +1,1 @@
+void EncryptionDemo(Heratio &heratio, HenselCode &hensel_code);

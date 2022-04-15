@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <unistd.h>
 #include "lib/include/rational.h"
 #include "lib/include/heratio.h"
 #include "lib/include/inspect.h"
@@ -46,7 +47,6 @@ std::string Inspect(std::vector<Rational> v)
     }
   }
   buffer += ">";
-  // std::cout + buffer.str() + "\n";
   return buffer;
 }
 

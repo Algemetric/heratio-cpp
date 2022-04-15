@@ -31,9 +31,9 @@ void Heratio::KeyGen(const long d_, const long t_, const long alpha_, const long
 NTL::ZZ Heratio::Encrypt(NTL::ZZ m)
 {
   NTL::ZZ r = NTL::RandomLen_ZZ(this->sigma);
-  NTL::ZZ two_to_lambda = NTL::power2_ZZ(this->lambda);
-  NTL::ZZ delta = NTL::RandomBnd(two_to_lambda / this->p_to_alpha);
-  NTL::ZZ c = delta * this->p_to_alpha + m + r * this->q0_to_beta;
+  NTL::ZZ two_to_gamma = NTL::power2_ZZ(this->gamma);
+  NTL::ZZ delta = NTL::RandomBnd(two_to_gamma / this->p_to_alpha);
+  NTL::ZZ c = (delta * this->p_to_alpha + m + r * this->q0_to_beta) % this->x0;
 
   return c;
 }

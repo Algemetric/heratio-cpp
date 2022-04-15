@@ -77,3 +77,30 @@ TEST(RationalTest, RationalEquality)
   EXPECT_FALSE(rat1 == rat3);
   EXPECT_FALSE(rat2 == rat3);
 }
+
+TEST(RationalTest, StringToRational)
+{
+  std::string string1 = "2/3";
+  std::string string2 = "-3/5";
+  std::string string3 = "6/1";
+  std::string string4 = "1//2";
+  std::string string5 = "1/b";
+  std::string string6 = "a/b";
+  std::string string7 = "*";
+
+  Rational rational1 = StringToRational(string1);
+  Rational rational2 = StringToRational(string2);
+  Rational rational3 = StringToRational(string3);
+  Rational rational4 = StringToRational(string4);
+  Rational rational5 = StringToRational(string5);
+  Rational rational6 = StringToRational(string6);
+  Rational rational7 = StringToRational(string7);
+
+  EXPECT_EQ(string1, rational1.ToString());
+  EXPECT_EQ(string2, rational2.ToString());
+  EXPECT_EQ(string3, rational3.ToString());
+  EXPECT_EQ("0/1", rational4.ToString());
+  EXPECT_EQ("0/1", rational5.ToString());
+  EXPECT_EQ("0/1", rational6.ToString());
+  EXPECT_EQ("0/1", rational7.ToString());
+}

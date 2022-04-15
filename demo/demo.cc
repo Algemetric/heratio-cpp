@@ -1,18 +1,4 @@
-#include <NTL/ZZ.h>
-#include <NTL/vector.h>
-#include <NTL/ZZ_p.h>
-#include <math.h>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <istream>
-#include "lib/include/rational.h"
-#include "lib/include/heratio.h"
-#include "lib/include/inspect.h"
-#include "lib/include/hensel_code.h"
-#include "lib/include/tools.h"
-#include "demo/demo_helpers.h"
+#include "include_helper.h"
 
 int main()
 {

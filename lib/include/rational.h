@@ -24,4 +24,8 @@ struct Rational
   bool operator==(Rational other);
 };
 
+bool IsStringInteger(std::string string);
+
+long StringCharCount(char character, std::string string);
+
 Rational StringToRational(std::string string);
