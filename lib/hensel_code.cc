@@ -1,26 +1,23 @@
+#include "lib/include/hensel_code.h"
+#include "lib/include/rational.h"
 #include <NTL/ZZ.h>
 #include <NTL/vector.h>
-#include <vector>
 #include <math.h>
-#include "lib/include/rational.h"
-#include "lib/include/hensel_code.h"
+#include <vector>
 
-HenselCode::HenselCode(NTL::ZZ prime_, int r_)
-{
+HenselCode::HenselCode(NTL::ZZ prime_, int r_) {
   this->prime = prime_;
   this->r = r_;
 }
 
-NTL::ZZ HenselCode::Encode(Rational m)
-{
+NTL::ZZ HenselCode::Encode(Rational m) {
   NTL::ZZ den_inv = InvMod(m.denominator, power(this->prime, this->r));
   NTL::ZZ h = MulMod(m.numerator, den_inv, power(this->prime, this->r));
 
   return h;
 }
 
-Rational HenselCode::Decode(NTL::ZZ h)
-{
+Rational HenselCode::Decode(NTL::ZZ h) {
   int i = 0;
   NTL::ZZ big_n = SqrRoot((prime - 1) / 2);
   NTL::Vec<NTL::ZZ> x;
@@ -40,8 +37,7 @@ Rational HenselCode::Decode(NTL::ZZ h)
   NTL::ZZ q;
   i = 1;
 
-  while (x[i] > big_n)
-  {
+  while (x[i] > big_n) {
     x.SetLength(x.length() + 2);
     y.SetLength(y.length() + 2);
     z.SetLength(z.length() + 2);
@@ -60,25 +56,21 @@ Rational HenselCode::Decode(NTL::ZZ h)
   return m;
 }
 
-NTL::Vec<NTL::ZZ> HenselCode::EncodeVector(std::vector<Rational> v)
-{
+NTL::Vec<NTL::ZZ> HenselCode::EncodeVector(std::vector<Rational> v) {
   NTL::Vec<NTL::ZZ> vh;
   vh.SetLength(v.size());
 
-  for (long i = 0; i < vh.length(); i++)
-  {
+  for (long i = 0; i < vh.length(); i++) {
     vh[i] = Encode(v[i]);
   }
 
   return vh;
 }
 
-std::vector<Rational> HenselCode::DecodeVector(NTL::Vec<NTL::ZZ> vh)
-{
+std::vector<Rational> HenselCode::DecodeVector(NTL::Vec<NTL::ZZ> vh) {
   std::vector<Rational> v;
 
-  for (long i = 0; i < vh.length(); i++)
-  {
+  for (long i = 0; i < vh.length(); i++) {
     v.push_back(Decode(vh[i]));
   }
 

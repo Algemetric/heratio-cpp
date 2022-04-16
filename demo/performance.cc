@@ -1,7 +1,6 @@
 #include "include_helper.h"
 
-void PerformanceDemo(Heratio &heratio, HenselCode &hensel_code)
-{
+void PerformanceDemo(Heratio &heratio, HenselCode &hensel_code) {
   DisplayDemoTitle(6);
   KeyGenPerformance(heratio);
   HenselCodePerformance(hensel_code);
@@ -10,21 +9,20 @@ void PerformanceDemo(Heratio &heratio, HenselCode &hensel_code)
   CompositeHomomorphismPerformance(heratio, hensel_code);
 }
 
-void KeyGenPerformance(Heratio &heratio)
-{
+void KeyGenPerformance(Heratio &heratio) {
   double milliseconds;
 
   std::cout << "Key Generation: ";
   auto start = std::chrono::high_resolution_clock::now();
-  heratio.KeyGen(heratio.d, heratio.t, heratio.alpha, heratio.beta, heratio.lambda);
+  heratio.KeyGen(heratio.d, heratio.t, heratio.alpha, heratio.beta,
+                 heratio.lambda);
   auto stop = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double, std::milli> duration = stop - start;
   milliseconds = duration.count();
   PrintDuration(milliseconds);
 }
 
-void HenselCodePerformance(HenselCode &hensel_code)
-{
+void HenselCodePerformance(HenselCode &hensel_code) {
   double milliseconds;
   Rational rational = Rational(15, 19);
 
@@ -45,8 +43,7 @@ void HenselCodePerformance(HenselCode &hensel_code)
   PrintDuration(milliseconds);
 }
 
-void EncryptionPerformance(Heratio &heratio, HenselCode &hensel_code)
-{
+void EncryptionPerformance(Heratio &heratio, HenselCode &hensel_code) {
   double milliseconds;
   Rational rational = Rational(15, 19);
   NTL::ZZ h = hensel_code.Encode(rational);
@@ -68,8 +65,7 @@ void EncryptionPerformance(Heratio &heratio, HenselCode &hensel_code)
   PrintDuration(milliseconds);
 }
 
-void BasicHomomorphismPerformance(Heratio &heratio, HenselCode &hensel_code)
-{
+void BasicHomomorphismPerformance(Heratio &heratio, HenselCode &hensel_code) {
   double milliseconds;
   Rational rational1 = Rational(15, 19);
   Rational rational2 = Rational(13, 17);
@@ -95,8 +91,8 @@ void BasicHomomorphismPerformance(Heratio &heratio, HenselCode &hensel_code)
   PrintDuration(milliseconds);
 }
 
-void CompositeHomomorphismPerformance(Heratio &heratio, HenselCode &hensel_code)
-{
+void CompositeHomomorphismPerformance(Heratio &heratio,
+                                      HenselCode &hensel_code) {
   double milliseconds;
   std::vector<Rational> v1 = GenerateRandomVector(4, NTL::ZZ(50));
   std::vector<Rational> v2 = GenerateRandomVector(4, NTL::ZZ(50));
@@ -114,7 +110,6 @@ void CompositeHomomorphismPerformance(Heratio &heratio, HenselCode &hensel_code)
   PrintDuration(milliseconds);
 }
 
-void PrintDuration(double milliseconds)
-{
+void PrintDuration(double milliseconds) {
   std::cout << milliseconds << " milliseconds" << endln(2);
 }

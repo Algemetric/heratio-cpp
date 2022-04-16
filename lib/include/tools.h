@@ -1,8 +1,12 @@
 #pragma once
 
+#include "lib/include/rational.h"
+#include <NTL/ZZ.h>
+
 NTL::ZZ GenerateNonZeroRandomInteger(const NTL::ZZ upperbound);
 
-std::vector<Rational> GenerateRandomVector(const int size, const NTL::ZZ upperbound);
+std::vector<Rational> GenerateRandomVector(const int size,
+                                           const NTL::ZZ upperbound);
 
 NTL::Vec<NTL::ZZ> CreateVectorFromUniqueValue(long size, NTL::ZZ value);
 

@@ -1,27 +1,25 @@
-#include <NTL/ZZ.h>
-#include <NTL/vector.h>
-#include <NTL/ZZ_p.h>
-#include <math.h>
-#include <vector>
-#include <stdlib.h>
-#include <time.h>
-#include "lib/include/rational.h"
+#include "lib/include/hensel_code.h"
 #include "lib/include/heratio.h"
 #include "lib/include/inspect.h"
-#include "lib/include/hensel_code.h"
+#include "lib/include/rational.h"
 #include "lib/include/tools.h"
 #include "gtest/gtest.h"
+#include <NTL/ZZ.h>
+#include <NTL/ZZ_p.h>
+#include <NTL/vector.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+#include <vector>
 
-TEST(ToolsTest, RandomInteger)
-{
+TEST(ToolsTest, RandomInteger) {
   long bound = 30;
   NTL::ZZ number = GenerateNonZeroRandomInteger(NTL::ZZ(bound));
 
   EXPECT_TRUE((0 <= number) && (number < bound));
 }
 
-TEST(ToolsTest, RandomVector)
-{
+TEST(ToolsTest, RandomVector) {
   long bound = 50;
   long size1 = 3;
   long size2 = 2;
@@ -42,8 +40,7 @@ TEST(ToolsTest, RandomVector)
   EXPECT_TRUE((0 <= v2[1].denominator) && (v2[1].denominator < bound));
 }
 
-TEST(ToolsTest, VectorFromUniqueValue)
-{
+TEST(ToolsTest, VectorFromUniqueValue) {
   long size = 5;
   NTL::ZZ value = NTL::ZZ(36);
   NTL::Vec<NTL::ZZ> v = CreateVectorFromUniqueValue(size, value);
@@ -56,10 +53,10 @@ TEST(ToolsTest, VectorFromUniqueValue)
   EXPECT_EQ(value, v[4]);
 }
 
-TEST(ToolsTest, DotProduct)
-{
+TEST(ToolsTest, DotProduct) {
   std::vector<Rational> v1 = {Rational(2, 3), Rational(4, 5), Rational(6, 7)};
-  std::vector<Rational> v2 = {Rational(8, 9), Rational(10, 11), Rational(12, 13)};
+  std::vector<Rational> v2 = {Rational(8, 9), Rational(10, 11),
+                              Rational(12, 13)};
   Rational expected_dot_product1 = Rational(57056, 27027);
 
   NTL::Vec<NTL::ZZ> v3;

@@ -1,27 +1,24 @@
-#include <NTL/ZZ.h>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <algorithm>
 #include "lib/include/rational.h"
 #include "lib/include/tools.h"
+#include <NTL/ZZ.h>
+#include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
 
-Rational::Rational()
-{
+Rational::Rational() {
   this->numerator = NTL::ZZ(0);
   this->denominator = NTL::ZZ(1);
 }
 
-Rational::Rational(NTL::ZZ numerator, NTL::ZZ denominator)
-{
+Rational::Rational(NTL::ZZ numerator, NTL::ZZ denominator) {
   NTL::ZZ g = NTL::GCD(numerator, denominator);
   this->numerator = numerator / g;
   this->denominator = denominator / g;
 }
 
-Rational::Rational(long num, long den)
-{
+Rational::Rational(long num, long den) {
   NTL::ZZ numerator_ = NTL::ZZ(num);
   NTL::ZZ denominator_ = NTL::ZZ(den);
   NTL::ZZ g = NTL::GCD(numerator_, denominator_);
@@ -29,40 +26,40 @@ Rational::Rational(long num, long den)
   this->denominator = denominator_ / g;
 }
 
-std::string Rational::ToString()
-{
+std::string Rational::ToString() {
   std::stringstream buffer;
   buffer << this->numerator << "/" << this->denominator;
   return buffer.str();
 }
 
-Rational Rational::operator+(Rational other)
-{
-  return Rational(this->numerator * other.denominator + this->denominator * other.numerator, this->denominator * other.denominator);
+Rational Rational::operator+(Rational other) {
+  return Rational(this->numerator * other.denominator +
+                      this->denominator * other.numerator,
+                  this->denominator * other.denominator);
 }
 
-Rational Rational::operator-(Rational other)
-{
-  return Rational(this->numerator * other.denominator - this->denominator * other.numerator, this->denominator * other.denominator);
+Rational Rational::operator-(Rational other) {
+  return Rational(this->numerator * other.denominator -
+                      this->denominator * other.numerator,
+                  this->denominator * other.denominator);
 }
 
-Rational Rational::operator*(Rational other)
-{
-  return Rational(this->numerator * other.numerator, this->denominator * other.denominator);
+Rational Rational::operator*(Rational other) {
+  return Rational(this->numerator * other.numerator,
+                  this->denominator * other.denominator);
 }
 
-Rational Rational::operator/(Rational other)
-{
-  return Rational(this->numerator * other.denominator, this->denominator * other.numerator);
+Rational Rational::operator/(Rational other) {
+  return Rational(this->numerator * other.denominator,
+                  this->denominator * other.numerator);
 }
 
-bool Rational::operator==(Rational other)
-{
-  return (this->numerator == other.numerator) && (this->denominator == other.denominator);
+bool Rational::operator==(Rational other) {
+  return (this->numerator == other.numerator) &&
+         (this->denominator == other.denominator);
 }
 
-bool IsStringInteger(std::string s)
-{
+bool IsStringInteger(std::string s) {
   if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+')))
     return false;
 
@@ -72,13 +69,11 @@ bool IsStringInteger(std::string s)
   return (*p == 0);
 }
 
-long StringCharCount(char character, std::string string)
-{
+long StringCharCount(char character, std::string string) {
   return std::count(string.begin(), string.end(), character);
 }
 
-Rational StringToRational(std::string string)
-{
+Rational StringToRational(std::string string) {
   std::vector<std::string> sv;
   std::stringstream rational_ss;
   std::string s;
@@ -87,31 +82,22 @@ Rational StringToRational(std::string string)
 
   rational_ss << string;
 
-  if (IsStringInteger(string) == 1 && StringCharCount('/', string) == 0)
-  {
+  if (IsStringInteger(string) == 1 && StringCharCount('/', string) == 0) {
     numerator = StringToZZ(string);
     denominator = NTL::ZZ(1);
-  }
-  else if (StringCharCount('/', string) == 1)
-  {
-    while (std::getline(rational_ss, s, '/'))
-    {
+  } else if (StringCharCount('/', string) == 1) {
+    while (std::getline(rational_ss, s, '/')) {
       sv.push_back(s);
     }
 
-    if (IsStringInteger(sv[0]) && IsStringInteger(sv[1]))
-    {
+    if (IsStringInteger(sv[0]) && IsStringInteger(sv[1])) {
       numerator = StringToZZ(sv[0]);
       denominator = StringToZZ(sv[1]);
-    }
-    else
-    {
+    } else {
       numerator = NTL::ZZ(0);
       denominator = NTL::ZZ(1);
     }
-  }
-  else
-  {
+  } else {
     numerator = NTL::ZZ(0);
     denominator = NTL::ZZ(1);
   }

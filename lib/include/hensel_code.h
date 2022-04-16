@@ -1,7 +1,9 @@
 #pragma once
 
-class HenselCode
-{
+#include "lib/include/rational.h"
+#include <NTL/ZZ.h>
+
+class HenselCode {
 public:
   NTL::ZZ prime;
   int r;

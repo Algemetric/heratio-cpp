@@ -1,12 +1,11 @@
+#include "lib/include/hensel_code.h"
+#include "lib/include/rational.h"
+#include "gtest/gtest.h"
 #include <NTL/ZZ.h>
 #include <NTL/vector.h>
 #include <vector>
-#include "lib/include/rational.h"
-#include "lib/include/hensel_code.h"
-#include "gtest/gtest.h"
 
-TEST(HenselCodeTest, HenselCodeConstructor)
-{
+TEST(HenselCodeTest, HenselCodeConstructor) {
 
   NTL::ZZ prime = NTL::ZZ(257);
   int r = 3;
@@ -16,8 +15,7 @@ TEST(HenselCodeTest, HenselCodeConstructor)
   EXPECT_EQ(r, hensel_code.r);
 }
 
-TEST(HenselCodeTest, Encode)
-{
+TEST(HenselCodeTest, Encode) {
   NTL::ZZ prime = NTL::ZZ(257);
   int r = 3;
   HenselCode hensel_code = HenselCode(prime, r);
@@ -27,8 +25,7 @@ TEST(HenselCodeTest, Encode)
   EXPECT_EQ(7544264, h);
 }
 
-TEST(HenselCodeTest, Decode)
-{
+TEST(HenselCodeTest, Decode) {
   NTL::ZZ prime = NTL::ZZ(257);
   int r = 3;
   HenselCode hensel_code = HenselCode(prime, r);
@@ -39,13 +36,14 @@ TEST(HenselCodeTest, Decode)
   EXPECT_EQ("4/9", rational_decoded.ToString());
 }
 
-TEST(HenselCodeTest, EncodeVector)
-{
+TEST(HenselCodeTest, EncodeVector) {
   NTL::ZZ prime = NTL::ZZ(257);
   int r = 3;
   HenselCode hensel_code = HenselCode(prime, r);
 
-  std::vector<Rational> v = {Rational(NTL::ZZ(2), NTL::ZZ(3)), Rational(NTL::ZZ(4), NTL::ZZ(5)), Rational(NTL::ZZ(6), NTL::ZZ(7))};
+  std::vector<Rational> v = {Rational(NTL::ZZ(2), NTL::ZZ(3)),
+                             Rational(NTL::ZZ(4), NTL::ZZ(5)),
+                             Rational(NTL::ZZ(6), NTL::ZZ(7))};
   NTL::Vec<NTL::ZZ> vh = hensel_code.EncodeVector(v);
 
   EXPECT_EQ(v.size(), vh.length());
@@ -54,13 +52,14 @@ TEST(HenselCodeTest, EncodeVector)
   EXPECT_EQ(14549652, vh[2]);
 }
 
-TEST(HenselCodeTest, DecodeVector)
-{
+TEST(HenselCodeTest, DecodeVector) {
   NTL::ZZ prime = NTL::ZZ(257);
   int r = 3;
   HenselCode hensel_code = HenselCode(prime, r);
 
-  std::vector<Rational> v = {Rational(NTL::ZZ(2), NTL::ZZ(3)), Rational(NTL::ZZ(4), NTL::ZZ(5)), Rational(NTL::ZZ(6), NTL::ZZ(7))};
+  std::vector<Rational> v = {Rational(NTL::ZZ(2), NTL::ZZ(3)),
+                             Rational(NTL::ZZ(4), NTL::ZZ(5)),
+                             Rational(NTL::ZZ(6), NTL::ZZ(7))};
   NTL::Vec<NTL::ZZ> vh = hensel_code.EncodeVector(v);
   std::vector<Rational> v_decoded = hensel_code.DecodeVector(vh);
 

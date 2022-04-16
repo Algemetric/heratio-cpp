@@ -1,9 +1,9 @@
 #pragma once
 
+#include <NTL/ZZ.h>
 #include <stddef.h>
 
-class Heratio
-{
+class Heratio {
 public:
   long d;
   long t;
@@ -22,7 +22,8 @@ public:
   NTL::ZZ q_star;
   NTL::ZZ x0;
 
-  void KeyGen(const long d_, const long t_, const long alpha_, const long beta_, const long lambda_);
+  void KeyGen(const long d_, const long t_, const long alpha_, const long beta_,
+              const long lambda_);
 
   NTL::ZZ Encrypt(NTL::ZZ m);
 

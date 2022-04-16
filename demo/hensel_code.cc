@@ -1,7 +1,6 @@
 #include "include_helper.h"
 
-void HenselCodeDemo(Heratio heratio, HenselCode hensel_code)
-{
+void HenselCodeDemo(Heratio heratio, HenselCode hensel_code) {
 
   std::string string;
   DisplayDemoTitle(1);
@@ -18,8 +17,8 @@ void HenselCodeDemo(Heratio heratio, HenselCode hensel_code)
   DisplayEncodingDecodingResults(rational, rational_decoded, h);
 }
 
-void EncodeDecodeRational(HenselCode &hensel_code, Rational &rational, NTL::ZZ &h, Rational &rational_decoded)
-{
+void EncodeDecodeRational(HenselCode &hensel_code, Rational &rational,
+                          NTL::ZZ &h, Rational &rational_decoded) {
   h = hensel_code.Encode(rational);
   rational_decoded = hensel_code.Decode(h);
 }

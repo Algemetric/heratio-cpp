@@ -1,7 +1,6 @@
 #include "include_helper.h"
 
-int main()
-{
+int main() {
   std::string config = "default";
   long d;
   long t;
@@ -14,7 +13,7 @@ int main()
 
   SelectParameters(config, d, t, alpha, beta, lambda, heratio, hensel_code);
 
-  MainMenu(heratio, hensel_code);
+  MainMenu(d, t, alpha, beta, lambda, heratio, hensel_code);
 
   return 0;
 }

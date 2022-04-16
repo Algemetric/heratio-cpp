@@ -1,7 +1,6 @@
 #include "include_helper.h"
 
-void BasicHomomorphicOperationsDemo(Heratio &heratio, HenselCode &hensel_code)
-{
+void BasicHomomorphicOperationsDemo(Heratio &heratio, HenselCode &hensel_code) {
   std::string string;
   Rational rational1;
   Rational rational2;
@@ -37,16 +36,13 @@ void BasicHomomorphicOperationsDemo(Heratio &heratio, HenselCode &hensel_code)
   decoded_sum_result = hensel_code.Decode(decrypted_sum_result);
   decoded_mul_result = hensel_code.Decode(decrypted_mul_result);
 
-  DisplayBasicHomomorphicResults(rational1, rational2,
-                                 decoded_sum_result, decoded_mul_result,
-                                 h1, h2,
-                                 c1, c2,
-                                 c1_plus_c2, c1_times_c2,
-                                 decrypted_sum_result, decrypted_mul_result);
+  DisplayBasicHomomorphicResults(
+      rational1, rational2, decoded_sum_result, decoded_mul_result, h1, h2, c1,
+      c2, c1_plus_c2, c1_times_c2, decrypted_sum_result, decrypted_mul_result);
 }
 
-void CompositeHomomorphicOperationsDemo(Heratio &heratio, HenselCode &hensel_code)
-{
+void CompositeHomomorphicOperationsDemo(Heratio &heratio,
+                                        HenselCode &hensel_code) {
   int size;
   std::vector<Rational> vector1;
   std::vector<Rational> vector2;
@@ -90,10 +86,12 @@ void CompositeHomomorphicOperationsDemo(Heratio &heratio, HenselCode &hensel_cod
   Rational decoded_dot_product = hensel_code.Decode(decrypted_dot_product);
 
   std::cout << "Decoded dot product: " << std::endl;
-  std::cout << "decoded_dot_product: " << decoded_dot_product.ToString() << endln(2);
+  std::cout << "decoded_dot_product: " << decoded_dot_product.ToString()
+            << endln(2);
 
   Rational plaintext_dot_product = DotProduct(vector1, vector2);
 
   std::cout << "Plaintext dot product: " << std::endl;
-  std::cout << "plaintext_dot_product: " << plaintext_dot_product.ToString() << endln(2);
+  std::cout << "plaintext_dot_product: " << plaintext_dot_product.ToString()
+            << endln(2);
 }

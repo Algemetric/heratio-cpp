@@ -1,0 +1,43 @@
+
+===============================================
+HERatio: Show Larger Config
+===============================================
+
+Arguments passed to key generation:
+-----------------------------------
+d = 2
+t = 3
+alpha = 40
+beta = 30
+lambda = 72
+
+Computed parameters:
+-----------------------------------
+gamma = 268738
+eta = 5184
+mu = 2045
+sigma = 42327
+
+Computed values:
+-----------------------------------
+Too large to display.
+
+===============================================
+HERatio: Larger Config Performance
+===============================================
+
+Key Generation: 1.30082e+07 milliseconds
+
+Hensel Encoding: 0.0635 milliseconds
+
+Hensel Decoding: 0.096083 milliseconds
+
+Encryption: 1.59767 milliseconds
+
+Decryption: 0.855083 milliseconds
+
+Homomorphic addition: 0.009167 milliseconds
+
+Homomorphic multiplication: 3.34358 milliseconds
+
+Homomorphic dot product: 13.4133 milliseconds

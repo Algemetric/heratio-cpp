@@ -1,48 +1,45 @@
+#include "lib/include/hensel_code.h"
+#include "lib/include/heratio.h"
+#include "lib/include/rational.h"
+#include "lib/include/tools.h"
+#include "gtest/gtest.h"
 #include <NTL/ZZ.h>
 #include <NTL/vector.h>
 #include <vector>
-#include "lib/include/rational.h"
-#include "lib/include/hensel_code.h"
-#include "lib/include/heratio.h"
-#include "lib/include/tools.h"
-#include "gtest/gtest.h"
 
-class HeratioTest : public ::testing::Test
-{
+class HeratioTest : public ::testing::Test {
 protected:
   const long d = 2;
   const long t = 3;
   const long alpha = 3;
   const long beta = 1;
-  const long lambda = 32;
+  const long lambda = 18;
 };
 
-TEST_F(HeratioTest, KeyGen)
-{
+TEST_F(HeratioTest, KeyGen) {
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
 
-  EXPECT_EQ(d, 2);
+  EXPECT_EQ(d, heratio.d);
   EXPECT_EQ(t, heratio.t);
   EXPECT_EQ(alpha, heratio.alpha);
   EXPECT_EQ(beta, heratio.beta);
   EXPECT_EQ(lambda, heratio.lambda);
 
-  EXPECT_EQ(1024, heratio.eta);
-  EXPECT_EQ(4194, heratio.gamma);
-  EXPECT_EQ(1122, heratio.mu);
-  EXPECT_EQ(411, heratio.sigma);
+  EXPECT_EQ(1049, heratio.gamma);
+  EXPECT_EQ(324, heratio.eta);
+  EXPECT_EQ(77, heratio.mu);
+  EXPECT_EQ(406, heratio.sigma);
 
   EXPECT_EQ(heratio.mu, NTL::NumBits(heratio.q0));
   EXPECT_EQ(heratio.eta, NTL::NumBits(heratio.p));
-  EXPECT_EQ(561, NTL::NumBits(heratio.q_star));
+  EXPECT_EQ(38, NTL::NumBits(heratio.q_star));
   EXPECT_EQ(NTL::power(heratio.p, heratio.alpha), heratio.p_to_alpha);
   EXPECT_EQ(NTL::power(heratio.q0, heratio.beta), heratio.q0_to_beta);
   EXPECT_EQ(heratio.p_to_alpha * heratio.q0_to_beta, heratio.x0);
 }
 
-TEST_F(HeratioTest, EncryptDecrypt)
-{
+TEST_F(HeratioTest, EncryptDecrypt) {
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
   HenselCode hensel_code = HenselCode(heratio.q_star, 1);
@@ -56,8 +53,7 @@ TEST_F(HeratioTest, EncryptDecrypt)
   EXPECT_EQ(m_prime.ToString(), m_prime_decoded.ToString());
 }
 
-TEST_F(HeratioTest, HomomorphicAddition)
-{
+TEST_F(HeratioTest, HomomorphicAddition) {
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
   HenselCode hensel_code = HenselCode(heratio.q_star, 1);
@@ -76,8 +72,7 @@ TEST_F(HeratioTest, HomomorphicAddition)
   EXPECT_EQ(m3_prime.ToString(), m3_prime_decoded.ToString());
 }
 
-TEST_F(HeratioTest, HomomorphicMultiplication)
-{
+TEST_F(HeratioTest, HomomorphicMultiplication) {
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
   HenselCode hensel_code = HenselCode(heratio.q_star, 1);
@@ -96,8 +91,7 @@ TEST_F(HeratioTest, HomomorphicMultiplication)
   EXPECT_EQ(m3_prime.ToString(), m3_prime_decoded.ToString());
 }
 
-TEST_F(HeratioTest, EncryptDecryptVector)
-{
+TEST_F(HeratioTest, EncryptDecryptVector) {
   Heratio heratio;
   heratio.KeyGen(d, t, alpha, beta, lambda);
   HenselCode hensel_code = HenselCode(heratio.q_star, 1);

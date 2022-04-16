@@ -1,18 +1,16 @@
-#include <NTL/ZZ.h>
-#include <string>
 #include "lib/include/rational.h"
 #include "gtest/gtest.h"
+#include <NTL/ZZ.h>
+#include <string>
 
-TEST(RationalTest, RationalConstructor)
-{
+TEST(RationalTest, RationalConstructor) {
   Rational rational = Rational(NTL::ZZ(8), NTL::ZZ(9));
 
   EXPECT_EQ(8, rational.numerator);
   EXPECT_EQ(9, rational.denominator);
 }
 
-TEST(RationalTest, IrreducibleFraction)
-{
+TEST(RationalTest, IrreducibleFraction) {
   Rational rat1 = Rational(NTL::ZZ(8), NTL::ZZ(4));
   Rational rat2 = Rational(NTL::ZZ(9), NTL::ZZ(6));
 
@@ -22,8 +20,7 @@ TEST(RationalTest, IrreducibleFraction)
   EXPECT_EQ(2, rat2.denominator);
 }
 
-TEST(RationalTest, ToString)
-{
+TEST(RationalTest, ToString) {
   Rational rat1 = Rational(NTL::ZZ(5), NTL::ZZ(3));
   Rational rat2 = Rational(NTL::ZZ(7), NTL::ZZ(4));
 
@@ -31,8 +28,7 @@ TEST(RationalTest, ToString)
   EXPECT_EQ("7/4", rat2.ToString());
 }
 
-TEST(RationalTest, Addition)
-{
+TEST(RationalTest, Addition) {
   Rational rat1 = Rational(NTL::ZZ(2), NTL::ZZ(3));
   Rational rat2 = Rational(NTL::ZZ(3), NTL::ZZ(5));
   Rational rat3 = rat1 + rat2;
@@ -40,8 +36,7 @@ TEST(RationalTest, Addition)
   EXPECT_EQ("19/15", rat3.ToString());
 }
 
-TEST(RationalTest, Subtraction)
-{
+TEST(RationalTest, Subtraction) {
   Rational rat1 = Rational(NTL::ZZ(2), NTL::ZZ(3));
   Rational rat2 = Rational(NTL::ZZ(3), NTL::ZZ(5));
   Rational rat3 = rat1 - rat2;
@@ -49,8 +44,7 @@ TEST(RationalTest, Subtraction)
   EXPECT_EQ("1/15", rat3.ToString());
 }
 
-TEST(RationalTest, Multiplication)
-{
+TEST(RationalTest, Multiplication) {
   Rational rat1 = Rational(NTL::ZZ(2), NTL::ZZ(3));
   Rational rat2 = Rational(NTL::ZZ(3), NTL::ZZ(5));
   Rational rat3 = rat1 * rat2;
@@ -58,8 +52,7 @@ TEST(RationalTest, Multiplication)
   EXPECT_EQ("2/5", rat3.ToString());
 }
 
-TEST(RationalTest, Division)
-{
+TEST(RationalTest, Division) {
   Rational rat1 = Rational(NTL::ZZ(2), NTL::ZZ(3));
   Rational rat2 = Rational(NTL::ZZ(3), NTL::ZZ(5));
   Rational rat3 = rat1 / rat2;
@@ -67,8 +60,7 @@ TEST(RationalTest, Division)
   EXPECT_EQ("10/9", rat3.ToString());
 }
 
-TEST(RationalTest, RationalEquality)
-{
+TEST(RationalTest, RationalEquality) {
   Rational rat1 = Rational(2, 3);
   Rational rat2 = Rational(2, 3);
   Rational rat3 = Rational(4, 3);
@@ -78,8 +70,7 @@ TEST(RationalTest, RationalEquality)
   EXPECT_FALSE(rat2 == rat3);
 }
 
-TEST(RationalTest, StringToRational)
-{
+TEST(RationalTest, StringToRational) {
   std::string string1 = "2/3";
   std::string string2 = "-3/5";
   std::string string3 = "6/1";

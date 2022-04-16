@@ -1,7 +1,6 @@
 #include "include_helper.h"
 
-void EncryptionDemo(Heratio &heratio, HenselCode &hensel_code)
-{
+void EncryptionDemo(Heratio &heratio, HenselCode &hensel_code) {
   std::string string;
   Rational rational;
   Rational rational_decoded;
@@ -20,6 +19,6 @@ void EncryptionDemo(Heratio &heratio, HenselCode &hensel_code)
   h_decrypted = heratio.Decrypt(c);
   rational_decoded = hensel_code.Decode(h_decrypted);
 
-  DisplayEncryptionDecryptionResults(rational, rational_decoded,
-                                     h, c, h_decrypted);
+  DisplayEncryptionDecryptionResults(rational, rational_decoded, h, c,
+                                     h_decrypted);
 }

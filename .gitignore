@@ -8,3 +8,8 @@ bazel-bin
 bazel-heratio
 bazel-out
 bazel-testlogs
+.codechecker/*
+docs/*
+latex/*
+third_party/*
+tools/*

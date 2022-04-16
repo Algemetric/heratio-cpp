@@ -1,7 +1,9 @@
 #pragma once
 
-struct Rational
-{
+#include <NTL/ZZ.h>
+#include <string>
+
+struct Rational {
   NTL::ZZ numerator;
   NTL::ZZ denominator;
 
