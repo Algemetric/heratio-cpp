@@ -2,6 +2,7 @@
 
 #include "lib/include/rational.h"
 #include <NTL/ZZ.h>
+#include <vector>
 
 class HenselCode {
 public:

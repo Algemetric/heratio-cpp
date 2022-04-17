@@ -1,7 +1,7 @@
 #include "include_helper.h"
 
-void SelectParameters(std::string &id, long &d, long &t, long &alpha,
-                      long &beta, long &lambda, Heratio &heratio,
+void SelectParameters(std::string &id, int64_t &d, int64_t &t, int64_t &alpha,
+                      int64_t &beta, int64_t &lambda, Heratio &heratio,
                       HenselCode &hensel_code) {
   if (id == "toy" || id == "default") {
     d = 2;
