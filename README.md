@@ -54,13 +54,13 @@ The paths above will work if you installed NTL and GMP using Homebrew. Otherwise
 Building:
 
 ```bash
-bazel build //main:heratio-demo
+bazel build demo:heratio
 ```
 
 Running demo:
 
 ```bash
-./bazel-bin/main/heratio-demo
+./bazel-bin/demo/heratio
 ```
 
 Cleaning up:
