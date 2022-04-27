@@ -7,13 +7,13 @@
 #include <unistd.h>
 #include <vector>
 
-std::string StringFromZZ(const NTL::ZZ &x) {
-  std::stringstream ss;
-  ss << x;
-  return ss.str();
+std::string StringFromZZ(const NTL::ZZ &zz_) {
+  std::stringstream ss_;
+  ss_ << zz_;
+  return ss_.str();
 }
 
-std::string Inspect(Heratio heratio) {
+std::string Inspect(const Heratio &heratio) {
   std::string buffer;
   buffer += "Heratio instance:\n\n";
   buffer += "d = " + std::to_string(heratio.d) + "\n";
@@ -21,24 +21,25 @@ std::string Inspect(Heratio heratio) {
   buffer += "alpha = " + std::to_string(heratio.alpha) + "\n";
   buffer += "beta = " + std::to_string(heratio.beta) + "\n";
   buffer += "lambda = " + std::to_string(heratio.lambda) + "\n\n";
+  buffer += "gamma = " + std::to_string(heratio.gamma) + "\n";
   buffer += "eta = " + std::to_string(heratio.eta) + "\n";
   buffer += "mu = " + std::to_string(heratio.mu) + "\n";
-  buffer += "sigma = " + std::to_string(heratio.sigma) + "\n";
-  buffer += "gamma = " + std::to_string(heratio.gamma) + "\n\n";
+  buffer += "tau = " + std::to_string(heratio.tau) + "\n";
+  buffer += "pi = " + std::to_string(heratio.pi) + "\n\n";
   buffer += "q0_bits = " + std::to_string(NTL::NumBits(heratio.q0)) + "\n";
-  buffer += "p_bits = " + std::to_string(NTL::NumBits(heratio.p)) + "\n";
+  buffer += "p_bits = " + std::to_string(NTL::NumBits(heratio.p)) + "\n\n";
   buffer +=
       "q_star_bits = " + std::to_string(NTL::NumBits(heratio.q_star)) + "\n\n";
 
   return buffer;
 }
 
-std::string Inspect(std::vector<Rational> v) {
+std::string Inspect(std::vector<Rational> vector) {
   std::string buffer = "<Vector ";
 
-  for (long i = 0; i < v.size(); i++) {
-    buffer += v[i].ToString();
-    if (i < v.size() - 1) {
+  for (long i = 0; i < vector.size(); i++) {
+    buffer += vector[i].ToString();
+    if (i < vector.size() - 1) {
       buffer += ", ";
     }
   }
@@ -46,16 +47,15 @@ std::string Inspect(std::vector<Rational> v) {
   return buffer;
 }
 
-std::string Inspect(NTL::Vec<NTL::ZZ> v) {
+std::string Inspect(NTL::Vec<NTL::ZZ> vector) {
   std::string buffer = "<Vector ";
 
-  for (long i = 0; i < v.length(); i++) {
-    buffer += StringFromZZ(v[i]);
-    if (i < v.length() - 1) {
+  for (long i = 0; i < vector.length(); i++) {
+    buffer += StringFromZZ(vector[i]);
+    if (i < vector.length() - 1) {
       buffer += ", ";
     }
   }
   buffer += ">";
-  // std::cout + buffer.str() + "\n";
   return buffer;
 }

@@ -9,25 +9,27 @@ struct Rational {
 
   Rational();
 
-  Rational(NTL::ZZ numerator, NTL::ZZ denominator);
+  Rational(NTL::ZZ numerator_, NTL::ZZ denominator_);
 
   Rational(long num, long den);
 
-  std::string ToString();
+  void GCD();
 
-  Rational operator+(Rational ohter);
+  std::string ToString() const;
 
-  Rational operator-(Rational ohter);
+  Rational operator+(Rational &ohter) const;
 
-  Rational operator*(Rational other);
+  Rational operator-(Rational &ohter) const;
 
-  Rational operator/(Rational other);
+  Rational operator*(Rational &other) const;
 
-  bool operator==(Rational other);
+  Rational operator/(Rational &other) const;
+
+  bool operator==(Rational &other) const;
 };
 
 bool IsStringInteger(std::string string);
 
 long StringCharCount(char character, std::string string);
 
-Rational StringToRational(std::string string);
+Rational StringToRational(const std::string &string);

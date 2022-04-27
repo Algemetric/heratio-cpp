@@ -72,6 +72,32 @@ TEST(ToolsTest, DotProduct) {
   v4[2] = NTL::ZZ(7);
   NTL::ZZ expected_dot_product2 = NTL::ZZ(56);
 
-  EXPECT_TRUE(expected_dot_product1 == DotProduct(v1, v2));
+  EXPECT_TRUE(expected_dot_product1.ToString() ==
+              DotProduct(v1, v2).ToString());
   EXPECT_TRUE(expected_dot_product2 == DotProduct(v3, v4));
+}
+
+TEST(ToolsTest, RationalProduct) {
+  std::vector<Rational> rationals;
+  rationals.push_back(Rational(2, 3));
+  rationals.push_back(Rational(4, 5));
+  rationals.push_back(Rational(6, 7));
+
+  Rational expected_product = Rational(16, 35);
+
+  EXPECT_TRUE(expected_product.ToString() == Product(rationals).ToString());
+}
+
+TEST(ToolsTest, IntegerProduct) {
+  NTL::Vec<NTL::ZZ> integers;
+  NTL::ZZ modulus = NTL::ZZ(64);
+
+  integers.SetLength(3);
+  integers[0] = NTL::ZZ(13);
+  integers[1] = NTL::ZZ(27);
+  integers[2] = NTL::ZZ(42);
+
+  NTL::ZZ expected_product = NTL::ZZ(22);
+
+  EXPECT_EQ(expected_product, Product(integers, modulus));
 }

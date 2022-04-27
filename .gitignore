@@ -13,3 +13,9 @@ docs/*
 latex/*
 third_party/*
 tools/*
+/external
+/bazel-*
+/compile_commands.json
+/.cache/
+.clang-tidy
+tools/*

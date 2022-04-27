@@ -26,8 +26,7 @@ void DisplayDemoTitle(const int &option) {
   std::cout << "===============================================" << endln(2);
 }
 
-void MainMenu(int64_t &d, int64_t &t, int64_t &alpha, int64_t &beta,
-              int64_t &lambda, Heratio heratio, HenselCode hensel_code) {
+void MainMenu(Heratio heratio, HenselCode hensel_code) {
   int option = -1;
   std::string params = "default";
 
@@ -39,9 +38,9 @@ void MainMenu(int64_t &d, int64_t &t, int64_t &alpha, int64_t &beta,
     if (option == 0) {
       Clear();
       std::cout << "Choose a set of parameters:\n\n";
-      std::cout << "toy, small, medium, large, or larger" << std::endl;
+      std::cout << "toy1, toy2, small, large" << std::endl;
       std::cin >> params;
-      SelectParameters(params, d, t, alpha, beta, lambda, heratio, hensel_code);
+      SelectParameters(params, heratio, hensel_code);
       Clear();
     } else if (option == 1) {
       Clear();
@@ -150,7 +149,8 @@ void ShowConfig(Heratio &heratio) {
   std::cout << "gamma = " << heratio.gamma << std::endl;
   std::cout << "eta = " << heratio.eta << std::endl;
   std::cout << "mu = " << heratio.mu << std::endl;
-  std::cout << "sigma = " << heratio.sigma << endln(2);
+  std::cout << "tau = " << heratio.tau << std::endl;
+  std::cout << "pi = " << heratio.pi << endln(2);
 
   std::cout << "Computed values:" << std::endl;
   std::cout << "-----------------------------------" << std::endl;
@@ -160,4 +160,6 @@ void ShowConfig(Heratio &heratio) {
   std::cout << "q0_to_beta = " << heratio.q0_to_beta << std::endl;
   std::cout << "x0 = " << heratio.x0 << std::endl;
   std::cout << "q_star = " << heratio.q_star << endln(2);
+  std::cout << "big_m = " << heratio.big_m << endln(2);
+  std::cout << "big_m_bits = " << NumBits(heratio.big_m) << endln(2);
 }

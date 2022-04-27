@@ -2,23 +2,15 @@
 #include "lib/include/rational.h"
 #include <NTL/ZZ.h>
 #include <NTL/vector.h>
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
 #include <vector>
 
-void Heratio::KeyGen(const long d_, const long t_, const long alpha_,
-                     const long beta_, const long lambda_) {
-  this->d = d_;
-  this->t = t_;
-  this->alpha = alpha_;
-  this->beta = beta_;
-  this->lambda = lambda_;
+void Heratio::KeyGen(const u_int64_t config_) {
+  this->config = config_;
 
-  this->gamma = ComputeGamma();
-  this->eta = ComputeEta();
-  this->mu = ComputeMu();
-  this->sigma = ComputeSigma();
+  SelectParameters();
 
   this->q0 = GenerateQ();
   this->p = GenerateP();
@@ -26,103 +18,178 @@ void Heratio::KeyGen(const long d_, const long t_, const long alpha_,
   this->q0_to_beta = ComputeQToBeta();
   this->x0 = ComputeX0();
   this->q_star = GenerateQStar();
+  this->big_m = ComputeM();
 }
 
-NTL::ZZ Heratio::Encrypt(NTL::ZZ m) {
-  NTL::ZZ r = NTL::RandomLen_ZZ(this->sigma);
+NTL::ZZ Heratio::Encrypt(const NTL::ZZ &message) const {
+  NTL::ZZ r_noise = NTL::RandomLen_ZZ(this->mu);
   NTL::ZZ two_to_gamma = NTL::power2_ZZ(this->gamma);
   NTL::ZZ delta = NTL::RandomBnd(two_to_gamma / this->p_to_alpha);
-  NTL::ZZ c = (delta * this->p_to_alpha + m + r * this->q0_to_beta) % this->x0;
+  NTL::ZZ ciphertext =
+      (delta * this->p_to_alpha + message + r_noise * this->q0_to_beta) %
+      this->x0;
 
-  return c;
+  return ciphertext;
 }
 
-NTL::ZZ Heratio::Decrypt(NTL::ZZ c) {
-  NTL::ZZ m = c % this->p_to_alpha % this->q0_to_beta;
-  return m;
+NTL::ZZ Heratio::Decrypt(NTL::ZZ &ciphertext) const {
+  NTL::ZZ message = ciphertext % this->p_to_alpha % this->q0_to_beta;
+  return message;
 }
 
-NTL::ZZ Heratio::Add(const NTL::ZZ c1, const NTL::ZZ c2) {
-  return NTL::AddMod(c1, c2, this->x0);
+NTL::ZZ Heratio::Add(const NTL::ZZ &ciphertext1,
+                     const NTL::ZZ &ciphertext2) const {
+  return NTL::AddMod(ciphertext1, ciphertext2, this->x0);
 }
 
-NTL::ZZ Heratio::Mul(const NTL::ZZ c1, const NTL::ZZ c2) {
-  return NTL::MulMod(c1, c2, this->x0);
+NTL::ZZ Heratio::Sub(const NTL::ZZ &ciphertext1,
+                     const NTL::ZZ &ciphertext2) const {
+  return NTL::SubMod(ciphertext1, ciphertext2, this->x0);
 }
 
-NTL::Vec<NTL::ZZ> Heratio::EncryptVector(NTL::Vec<NTL::ZZ> v) {
-  NTL::Vec<NTL::ZZ> c;
-  c.SetLength(v.length());
+NTL::ZZ Heratio::Mul(const NTL::ZZ &ciphertext1,
+                     const NTL::ZZ &ciphertext2) const {
+  return NTL::MulMod(ciphertext1, ciphertext2, this->x0);
+}
 
-  for (long i = 0; i < v.length(); i++) {
-    c[i] = Encrypt(v[i]);
+NTL::ZZ Heratio::Div(const NTL::ZZ &ciphertext1,
+                     const NTL::ZZ &ciphertext2) const {
+  NTL::ZZ c2_inv = NTL::InvMod(ciphertext2, this->x0);
+  return NTL::MulMod(ciphertext1, c2_inv, this->x0);
+}
+
+NTL::Vec<NTL::ZZ>
+Heratio::EncryptVector(NTL::Vec<NTL::ZZ> plaintext_vector) const {
+  NTL::Vec<NTL::ZZ> ciphertext_vector;
+  ciphertext_vector.SetLength(plaintext_vector.length());
+
+  for (long i = 0; i < plaintext_vector.length(); i++) {
+    ciphertext_vector[i] = Encrypt(plaintext_vector[i]);
   }
 
-  return c;
+  return ciphertext_vector;
 }
 
-NTL::Vec<NTL::ZZ> Heratio::DecryptVector(NTL::Vec<NTL::ZZ> c) {
-  NTL::Vec<NTL::ZZ> v;
-  v.SetLength(c.length());
+NTL::Vec<NTL::ZZ>
+Heratio::DecryptVector(NTL::Vec<NTL::ZZ> ciphertext_vector) const {
+  NTL::Vec<NTL::ZZ> plaintext_vector;
+  plaintext_vector.SetLength(ciphertext_vector.length());
 
-  for (long i = 0; i < c.length(); i++) {
-    v[i] = Decrypt(c[i]);
+  for (long i = 0; i < ciphertext_vector.length(); i++) {
+    plaintext_vector[i] = Decrypt(ciphertext_vector[i]);
   }
 
-  return v;
+  return plaintext_vector;
 }
 
-NTL::ZZ Heratio::DotProduct(NTL::Vec<NTL::ZZ> v1, NTL::Vec<NTL::ZZ> v2,
-                            NTL::ZZ prime) {
+NTL::ZZ Heratio::DotProduct(NTL::Vec<NTL::ZZ> vector1,
+                            NTL::Vec<NTL::ZZ> vector2, const NTL::ZZ &prime) {
   NTL::ZZ result = NTL::ZZ(0);
 
-  for (long i = 0; i < v1.length(); i++) {
-    result += NTL::MulMod(v1[i], v2[i], prime);
+  for (long i = 0; i < vector1.length(); i++) {
+    result += NTL::MulMod(vector1[i], vector2[i], prime);
   }
 
   return result % prime;
 }
 
-long Heratio::ComputeGamma() { return NTL::power_long(this->lambda, 4) / 100; }
+NTL::ZZ Heratio::GenerateQ() const { return NTL::GenPrime_ZZ(this->mu, 80); }
 
-long Heratio::ComputeEta() { return NTL::power_long(this->lambda, 2); }
-
-long Heratio::ComputeMu() {
-  return long((this->gamma - this->alpha * this->eta) / this->beta);
-}
-
-long Heratio::ComputeSigma() {
-  return ((this->alpha * this->eta - long(log2(this->t)) -
-           this->d * this->beta * this->mu - this->d) /
-          this->d) -
-         1;
-}
-
-NTL::ZZ Heratio::GenerateQ() { return NTL::GenPrime_ZZ(this->mu, 80); }
-
-NTL::ZZ Heratio::GenerateP() {
-  NTL::ZZ p_ = this->q0;
-  while (NTL::GCD(this->q0, p_) != 1) {
-    p_ = NTL::GenPrime_ZZ(this->eta, 80);
+NTL::ZZ Heratio::GenerateP() const {
+  NTL::ZZ prime_p = this->q0;
+  while ((NTL::GCD(this->q0, prime_p) != 1) != 0) {
+    prime_p = NTL::GenPrime_ZZ(this->eta, 80);
   }
-  return p_;
+  return prime_p;
 }
 
-NTL::ZZ Heratio::GenerateQStar() {
-  // long expression1 = (this->beta * this->mu - long(log2(this->t)) - 1) /
-  // this->d; long expression2 = (this->beta * this->mu - 4) / 2; long
-  // q_star_bits = long(std::min(expression1, expression2)); NTL::ZZ q_star =
-  // NTL::GenPrime_ZZ(q_star_bits, 80);
-
-  long q_star_bits =
-      long((this->beta * this->mu - ceil(log2(t)) + 2 * this->d) / d) - 1;
-  NTL::ZZ q_star = NTL::GenPrime_ZZ(q_star_bits, 80);
+NTL::ZZ Heratio::GenerateQStar() const {
+  NTL::ZZ q_star = NTL::GenPrime_ZZ(this->tau, 80);
 
   return q_star;
 }
 
-NTL::ZZ Heratio::ComputePToAlpha() { return NTL::power(this->p, this->alpha); }
+NTL::ZZ Heratio::ComputePToAlpha() const {
+  return NTL::power(this->p, this->alpha);
+}
 
-NTL::ZZ Heratio::ComputeQToBeta() { return NTL::power(this->q0, this->beta); }
+NTL::ZZ Heratio::ComputeQToBeta() const {
+  return NTL::power(this->q0, this->beta);
+}
 
-NTL::ZZ Heratio::ComputeX0() { return this->p_to_alpha * this->q0_to_beta; }
+NTL::ZZ Heratio::ComputeX0() const {
+  return this->p_to_alpha * this->q0_to_beta;
+}
+
+NTL::ZZ Heratio::ComputeM() const {
+  return NTL::SqrRoot((this->q_star - 1) / 2);
+}
+
+void Heratio::SelectParameters() {
+  switch (this->config) {
+  case 0:
+    Toy1Config();
+    break;
+  case 1:
+    Toy2Config();
+    break;
+  case 2:
+    SmallConfig();
+    break;
+  case 3:
+    LargeConfig();
+    break;
+  }
+}
+
+void Heratio::Toy1Config() {
+  this->d = 5;
+  this->t = 1;
+  this->alpha = 3;
+  this->beta = 1;
+  this->lambda = 18;
+  this->gamma = 1049;
+  this->eta = 324;
+  this->mu = 77;
+  this->tau = 16;
+  this->pi = 8;
+}
+
+void Heratio::Toy2Config() {
+  this->d = 10;
+  this->t = 3;
+  this->alpha = 6;
+  this->beta = 2;
+  this->lambda = 24;
+  this->gamma = 3096;
+  this->eta = 625;
+  this->mu = 78;
+  this->tau = 24;
+  this->pi = 12;
+}
+
+void Heratio::SmallConfig() {
+  this->d = 15;
+  this->t = 3;
+  this->alpha = 6;
+  this->beta = 2;
+  this->lambda = 52;
+  this->gamma = 70653;
+  this->eta = 11520;
+  this->mu = 769;
+  this->tau = 64;
+  this->pi = 32;
+}
+
+void Heratio::LargeConfig() {
+  this->d = 20;
+  this->t = 5;
+  this->alpha = 6;
+  this->beta = 2;
+  this->lambda = 56;
+  this->gamma = 94715;
+  this->eta = 15360;
+  this->mu = 1280;
+  this->tau = 128;
+  this->pi = 64;
+}

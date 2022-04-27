@@ -7,29 +7,26 @@
 #include <vector>
 
 TEST(InspectTools, InspectHeratio) {
-  const long d = 2;
-  const long t = 3;
-  const long alpha = 3;
-  const long beta = 1;
-  const long lambda = 18;
+  const long config = 0;
 
   Heratio heratio;
-  heratio.KeyGen(d, t, alpha, beta, lambda);
+  heratio.KeyGen(config);
 
-  std::string expected_result = "";
+  std::string expected_result;
   expected_result += "Heratio instance:\n\n";
-  expected_result += "d = 2\n";
-  expected_result += "t = 3\n";
+  expected_result += "d = 5\n";
+  expected_result += "t = 1\n";
   expected_result += "alpha = 3\n";
   expected_result += "beta = 1\n";
   expected_result += "lambda = 18\n\n";
+  expected_result += "gamma = 1049\n";
   expected_result += "eta = 324\n";
   expected_result += "mu = 77\n";
-  expected_result += "sigma = 406\n";
-  expected_result += "gamma = 1049\n\n";
+  expected_result += "tau = 16\n";
+  expected_result += "pi = 8\n\n";
   expected_result += "q0_bits = 77\n";
-  expected_result += "p_bits = 324\n";
-  expected_result += "q_star_bits = 38\n\n";
+  expected_result += "p_bits = 324\n\n";
+  expected_result += "q_star_bits = 16\n\n";
 
   EXPECT_EQ(expected_result, Inspect(heratio));
 }

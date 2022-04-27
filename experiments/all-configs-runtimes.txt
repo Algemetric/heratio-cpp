@@ -1,0 +1,48 @@
+
+Key Generation: 1.57425 milliseconds
+Key Generation: 2.42042 milliseconds
+Key Generation: 336.312 milliseconds
+Key Generation: 13016.3 milliseconds
+Key Generation: 1.30082e+07 milliseconds
+
+Hensel Encoding: 0.012041 milliseconds
+Hensel Encoding: 0.016166 milliseconds
+Hensel Encoding: 0.012708 milliseconds
+Hensel Encoding: 0.029667 milliseconds
+Hensel Encoding: 0.0635 milliseconds
+
+Hensel Decoding: 0.029375 milliseconds
+Hensel Decoding: 0.009458 milliseconds
+Hensel Decoding: 0.021584 milliseconds
+Hensel Decoding: 0.047417 milliseconds
+Hensel Decoding: 0.096083 milliseconds
+
+Encryption: 0.010917 milliseconds
+Encryption: 0.013 milliseconds
+Encryption: 0.02575 milliseconds
+Encryption: 0.218709 milliseconds
+Encryption: 1.59767 milliseconds
+
+Decryption: 0.001083 milliseconds
+Decryption: 0.00175 milliseconds
+Decryption: 0.007292 milliseconds
+Decryption: 0.098041 milliseconds
+Decryption: 0.855083 milliseconds
+
+Homomorphic addition: 0.001 milliseconds
+Homomorphic addition: 0.000959 milliseconds
+Homomorphic addition: 0.001542 milliseconds
+Homomorphic addition: 0.002834 milliseconds
+Homomorphic addition: 0.009167 milliseconds
+
+Homomorphic multiplication: 0.099708 milliseconds
+Homomorphic multiplication: 0.018583 milliseconds
+Homomorphic multiplication: 0.046375 milliseconds
+Homomorphic multiplication: 0.515375 milliseconds
+Homomorphic multiplication: 3.34358 milliseconds
+
+Homomorphic dot product: 0.008958 milliseconds
+Homomorphic dot product: 0.030209 milliseconds
+Homomorphic dot product: 0.131917 milliseconds
+Homomorphic dot product: 1.87437 milliseconds
+Homomorphic dot product: 13.4133 milliseconds

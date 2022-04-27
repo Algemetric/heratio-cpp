@@ -54,10 +54,10 @@ TEST(RationalTest, Multiplication) {
 
 TEST(RationalTest, Division) {
   Rational rat1 = Rational(NTL::ZZ(2), NTL::ZZ(3));
-  Rational rat2 = Rational(NTL::ZZ(3), NTL::ZZ(5));
+  Rational rat2 = Rational(NTL::ZZ(7), NTL::ZZ(11));
   Rational rat3 = rat1 / rat2;
 
-  EXPECT_EQ("10/9", rat3.ToString());
+  EXPECT_EQ("22/21", rat3.ToString());
 }
 
 TEST(RationalTest, RationalEquality) {

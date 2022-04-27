@@ -4,7 +4,7 @@ void HenselCodeDemo(Heratio heratio, HenselCode hensel_code) {
 
   std::string string;
   DisplayDemoTitle(1);
-  std::cout << "Encoding with q_star: " << heratio.q_star << std::endl;
+  std::cout << "Encoding with q0_to_beta: " << heratio.q0_to_beta << std::endl;
   std::cout << "No exponent" << endln(2);
   std::cout << "Type a rational number:\n\n";
   std::cin >> string;

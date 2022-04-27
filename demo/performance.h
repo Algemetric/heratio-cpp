@@ -12,5 +12,8 @@ void BasicHomomorphismPerformance(Heratio &heratio, HenselCode &hensel_code);
 
 void CompositeHomomorphismPerformance(Heratio &heratio,
                                       HenselCode &hensel_code);
+void ComputeDepth(Heratio &heratio, HenselCode &hensel_code);
+
+void Average(NTL::Vec<NTL::ZZ> v);
 
 void PrintDuration(double miliseconds);

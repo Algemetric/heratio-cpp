@@ -4,10 +4,10 @@
 #include "lib/include/rational.h"
 #include <NTL/ZZ.h>
 
-std::string StringFromZZ(const NTL::ZZ &x);
+std::string StringFromZZ(const NTL::ZZ &zz_);
 
-std::string Inspect(Heratio heratio);
+std::string Inspect(const Heratio &heratio);
 
-std::string Inspect(std::vector<Rational> v);
+std::string Inspect(std::vector<Rational> vector);
 
-std::string Inspect(NTL::Vec<NTL::ZZ> v);
+std::string Inspect(NTL::Vec<NTL::ZZ> vector);

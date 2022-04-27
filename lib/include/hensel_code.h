@@ -9,13 +9,13 @@ public:
   NTL::ZZ prime;
   int r;
 
-  HenselCode(NTL::ZZ prime_, int r_);
+  HenselCode(const NTL::ZZ &prime_, const long &r_exponent);
 
-  NTL::ZZ Encode(Rational m);
+  NTL::ZZ Encode(Rational &m_prime) const;
 
-  Rational Decode(NTL::ZZ h);
+  Rational Decode(NTL::ZZ &hencoded) const;
 
-  NTL::Vec<NTL::ZZ> EncodeVector(std::vector<Rational> v);
+  NTL::Vec<NTL::ZZ> EncodeVector(std::vector<Rational> vector) const;
 
-  std::vector<Rational> DecodeVector(NTL::Vec<NTL::ZZ> vh);
+  std::vector<Rational> DecodeVector(NTL::Vec<NTL::ZZ> &vencoded);
 };

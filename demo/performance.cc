@@ -7,6 +7,7 @@ void PerformanceDemo(Heratio &heratio, HenselCode &hensel_code) {
   EncryptionPerformance(heratio, hensel_code);
   BasicHomomorphismPerformance(heratio, hensel_code);
   CompositeHomomorphismPerformance(heratio, hensel_code);
+  ComputeDepth(heratio, hensel_code);
 }
 
 void KeyGenPerformance(Heratio &heratio) {
@@ -14,8 +15,7 @@ void KeyGenPerformance(Heratio &heratio) {
 
   std::cout << "Key Generation: ";
   auto start = std::chrono::high_resolution_clock::now();
-  heratio.KeyGen(heratio.d, heratio.t, heratio.alpha, heratio.beta,
-                 heratio.lambda);
+  heratio.KeyGen(heratio.config);
   auto stop = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double, std::milli> duration = stop - start;
   milliseconds = duration.count();
@@ -108,6 +108,44 @@ void CompositeHomomorphismPerformance(Heratio &heratio,
   std::chrono::duration<double, std::milli> duration = stop - start;
   milliseconds = duration.count();
   PrintDuration(milliseconds);
+}
+
+void ComputeDepth(Heratio &heratio, HenselCode &hensel_code) {
+  std::vector<Rational> plaintexts;
+  NTL::ZZ bound = NTL::ZZ(heratio.big_m);
+  long depth = heratio.d;
+
+  hensel_code.prime = heratio.q0_to_beta;
+
+  std::cout << "Depth: " << heratio.d << std::endl;
+  std::cout << "heratio.q0_to_beta: " << heratio.q0_to_beta << std::endl;
+  std::cout << "hensel_code.prime: " << hensel_code.prime << std::endl;
+
+  for (int i = 0; i < depth; i++) {
+    plaintexts.push_back(GenerateRandomRational(bound));
+  }
+
+  NTL::Vec<NTL::ZZ> encodings = hensel_code.EncodeVector(plaintexts);
+  NTL::Vec<NTL::ZZ> ciphertexts = heratio.EncryptVector(encodings);
+
+  Rational rational_product = Product(plaintexts);
+  NTL::ZZ encrypted_product = Product(ciphertexts, heratio.x0);
+  NTL::ZZ encoded_product = heratio.Decrypt(encrypted_product);
+  Rational decoded_product = hensel_code.Decode(encoded_product);
+
+  std::cout << "Computing depth:" << std::endl;
+  std::cout << "Decoded product: " << decoded_product.ToString() << std::endl;
+  std::cout << "Rational product: " << rational_product.ToString() << std::endl;
+  std::cout << "Equal? " << (decoded_product == rational_product) << std::endl;
+}
+
+void Average(NTL::Vec<NTL::ZZ> v, NTL::ZZ prime) {
+  NTL::ZZ sum;
+  NTL::ZZ avg;
+
+  for (int i = 0; i < v.length(); i++) {
+    sum += v[i];
+  }
 }
 
 void PrintDuration(double milliseconds) {

@@ -12,68 +12,100 @@
 #include <time.h>
 #include <vector>
 
-NTL::ZZ GenerateNonZeroRandomInteger(const NTL::ZZ upperbound) {
+NTL::ZZ GenerateNonZeroRandomInteger(const NTL::ZZ &upperbound) {
   NTL::ZZ number;
   while (true) {
     number = NTL::RandomBnd(upperbound);
-    if (number != 0) {
+    if ((number != 0) != 0) {
       break;
     }
   }
   return number;
 }
 
+Rational GenerateRandomRational(const NTL::ZZ &upperbound) {
+  NTL::ZZ numerator = GenerateNonZeroRandomInteger(upperbound);
+  NTL::ZZ denominator = GenerateNonZeroRandomInteger(upperbound);
+
+  return Rational(numerator, denominator);
+}
+
 std::vector<Rational> GenerateRandomVector(const int size,
-                                           const NTL::ZZ upperbound) {
+                                           const NTL::ZZ &upperbound) {
   NTL::ZZ numerator;
   NTL::ZZ denominator;
-  std::vector<Rational> v;
+  std::vector<Rational> vector;
 
   for (int i = 0; i < size; i++) {
     numerator = GenerateNonZeroRandomInteger(upperbound);
     denominator = GenerateNonZeroRandomInteger(upperbound);
-    v.push_back(Rational(numerator, denominator));
+    vector.push_back(Rational(numerator, denominator));
   }
 
-  return v;
+  return vector;
 }
 
-NTL::Vec<NTL::ZZ> CreateVectorFromUniqueValue(long size, NTL::ZZ value) {
-  NTL::Vec<NTL::ZZ> v;
-  v.SetLength(size);
+NTL::Vec<NTL::ZZ> CreateVectorFromUniqueValue(long size, const NTL::ZZ &value) {
+  NTL::Vec<NTL::ZZ> vector;
+  vector.SetLength(size);
 
   for (long i = 0; i < size; i++) {
-    v[i] = value;
+    vector[i] = value;
   }
 
-  return v;
+  return vector;
 }
 
-Rational DotProduct(std::vector<Rational> v1, std::vector<Rational> v2) {
+Rational DotProduct(std::vector<Rational> vector1,
+                    std::vector<Rational> vector2) {
   Rational result = Rational(NTL::ZZ(0), NTL::ZZ(1));
+  Rational mul;
 
-  for (long i = 0; i < v1.size(); i++) {
-    result = result + v1[i] * v2[i];
+  for (long i = 0; i < vector1.size(); i++) {
+    mul = vector1[i] * vector2[i];
+    result = result + mul;
   }
 
   return result;
 }
 
-NTL::ZZ DotProduct(NTL::Vec<NTL::ZZ> v1, NTL::Vec<NTL::ZZ> v2) {
+NTL::ZZ DotProduct(NTL::Vec<NTL::ZZ> vector1, NTL::Vec<NTL::ZZ> vector2) {
   NTL::ZZ result = NTL::ZZ(0);
 
-  for (long i = 0; i < v1.length(); i++) {
-    result += v1[i] * v2[i];
+  for (long i = 0; i < vector1.length(); i++) {
+    result += vector1[i] * vector2[i];
   }
 
   return result;
+}
+
+Rational Product(std::vector<Rational> rationals) {
+  long num = 1;
+  long den = 1;
+  Rational product = Rational(num, den);
+
+  for (long i = 0; i < rationals.size(); i++) {
+    product = product * rationals[i];
+  }
+
+  return product;
+}
+
+NTL::ZZ Product(NTL::Vec<NTL::ZZ> integers, const NTL::ZZ &modulus) {
+  NTL::ZZ product = NTL::ZZ(1);
+
+  for (long i = 0; i < integers.length(); i++) {
+    product = NTL::MulMod(product, integers[i], modulus);
+  }
+
+  return product;
 }
 
 NTL::ZZ StringToZZ(const std::string &string) {
-  NTL::ZZ z;
-  std::stringstream ss(string);
-  ss >> z;
-  return z;
+  NTL::ZZ zz_;
+  std::stringstream ss_(string);
+  ss_ >> zz_;
+  return zz_;
 }
 
 void Clear() {
@@ -87,7 +119,7 @@ void Clear() {
 }
 
 std::string endln(const int n) {
-  std::string string = "";
+  std::string string;
   for (int i = 0; i < n; i++) {
     string += "\n";
   }
