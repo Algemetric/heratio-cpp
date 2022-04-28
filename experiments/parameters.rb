@@ -1,17 +1,29 @@
 require 'openssl'
 
-d = 15;
-t = 3;
+d = 20;
+t = 5;
 alpha = 6;
-beta = 3;
-lambda_ = 50;
+beta = 2;
+lambda_ = 64;
 
-gamma = (lambda_ ** 4) / 100
-eta = lambda_ ** 2
-mu = (gamma - alpha * eta) / beta
-sigma = ((alpha * eta - Math.log2(t) - d * beta * mu - d) / d).to_i - 1;
+gamma = (lambda_ ** 5) / 12000
+eta = 15639
+mu = 1280
+rho = beta * mu + lambda_
+r = lambda_
+
+eta_reference = (lambda_**2 + rho * lambda_) / 11
+
 # tau = ((beta * mu - (log2(t)).ceil + 2 * d) / d).to_i - 1;
 
+real_gamma = eta * alpha + mu * beta
+
+
+puts "Tests:"
+puts "-------------------------------------"
+puts "rho valid? #{rho >= (lambda_)} | actual: #{rho}, reference: #{(lambda_)}"
+puts "eta valid? #{eta >= eta_reference} | actual: #{eta}, reference: #{eta_reference}"
+puts "real_gamma valid? #{real_gamma >= (gamma)}  | actual: #{real_gamma}, reference: #{(gamma)}"
 puts "\n\nGiven paramters:"
 puts "-------------------------------------"
 puts "d = #{d}"

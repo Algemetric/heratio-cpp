@@ -69,5 +69,5 @@ private:
 
   void SmallConfig();
 
-  void LargeConfig();
+  void MediumConfig();
 };

@@ -38,7 +38,7 @@ void MainMenu(Heratio heratio, HenselCode hensel_code) {
     if (option == 0) {
       Clear();
       std::cout << "Choose a set of parameters:\n\n";
-      std::cout << "toy1, toy2, small, large" << std::endl;
+      std::cout << "toy1, toy2, small, medium" << std::endl;
       std::cin >> params;
       SelectParameters(params, heratio, hensel_code);
       Clear();

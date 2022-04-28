@@ -9,7 +9,7 @@ void SelectParameters(std::string &id, Heratio &heratio,
     config = 1;
   } else if (id == "small") {
     config = 2;
-  } else if (id == "large") {
+  } else if (id == "medium") {
     config = 3;
   } else {
     std::cout << "Unknown selection. Continuing with default parameters."

@@ -19,13 +19,13 @@ TEST(InspectTools, InspectHeratio) {
   expected_result += "alpha = 3\n";
   expected_result += "beta = 1\n";
   expected_result += "lambda = 18\n\n";
-  expected_result += "gamma = 1049\n";
-  expected_result += "eta = 324\n";
+  expected_result += "gamma = 2111\n";
+  expected_result += "eta = 678\n";
   expected_result += "mu = 77\n";
   expected_result += "tau = 16\n";
   expected_result += "pi = 8\n\n";
   expected_result += "q0_bits = 77\n";
-  expected_result += "p_bits = 324\n\n";
+  expected_result += "p_bits = 678\n\n";
   expected_result += "q_star_bits = 16\n\n";
 
   EXPECT_EQ(expected_result, Inspect(heratio));

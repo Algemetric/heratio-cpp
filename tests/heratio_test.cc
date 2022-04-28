@@ -15,8 +15,8 @@ protected:
   const long alpha = 3;
   const long beta = 1;
   const long lambda = 18;
-  const long gamma = 1049;
-  const long eta = 324;
+  const long gamma = 2111;
+  const long eta = 678;
   const long mu = 77;
   const long tau = 16;
   const long pi = 8;

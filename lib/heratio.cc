@@ -137,7 +137,7 @@ void Heratio::SelectParameters() {
     SmallConfig();
     break;
   case 3:
-    LargeConfig();
+    MediumConfig();
     break;
   }
 }
@@ -148,8 +148,8 @@ void Heratio::Toy1Config() {
   this->alpha = 3;
   this->beta = 1;
   this->lambda = 18;
-  this->gamma = 1049;
-  this->eta = 324;
+  this->gamma = 2111;
+  this->eta = 678;
   this->mu = 77;
   this->tau = 16;
   this->pi = 8;
@@ -161,8 +161,8 @@ void Heratio::Toy2Config() {
   this->alpha = 6;
   this->beta = 2;
   this->lambda = 24;
-  this->gamma = 3096;
-  this->eta = 625;
+  this->gamma = 9948;
+  this->eta = 1632;
   this->mu = 78;
   this->tau = 24;
   this->pi = 12;
@@ -171,24 +171,24 @@ void Heratio::Toy2Config() {
 void Heratio::SmallConfig() {
   this->d = 15;
   this->t = 3;
-  this->alpha = 6;
+  this->alpha = 7;
   this->beta = 2;
   this->lambda = 52;
-  this->gamma = 70653;
-  this->eta = 11520;
-  this->mu = 769;
+  this->gamma = 76040;
+  this->eta = 12182;
+  this->mu = 768;
   this->tau = 64;
   this->pi = 32;
 }
 
-void Heratio::LargeConfig() {
+void Heratio::MediumConfig() {
   this->d = 20;
   this->t = 5;
   this->alpha = 6;
   this->beta = 2;
-  this->lambda = 56;
-  this->gamma = 94715;
-  this->eta = 15360;
+  this->lambda = 64;
+  this->gamma = 89478;
+  this->eta = 15639;
   this->mu = 1280;
   this->tau = 128;
   this->pi = 64;
