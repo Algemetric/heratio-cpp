@@ -12,6 +12,8 @@ void Heratio::KeyGen(const u_int64_t config_) {
 
   SelectParameters();
 
+  this->rho = this->beta * this->mu + this->lambda;
+
   this->q0 = GenerateQ();
   this->p = GenerateP();
   this->p_to_alpha = ComputePToAlpha();
@@ -22,9 +24,12 @@ void Heratio::KeyGen(const u_int64_t config_) {
 }
 
 NTL::ZZ Heratio::Encrypt(const NTL::ZZ &message) const {
-  NTL::ZZ r_noise = NTL::RandomLen_ZZ(this->mu);
-  NTL::ZZ two_to_gamma = NTL::power2_ZZ(this->gamma);
-  NTL::ZZ delta = NTL::RandomBnd(two_to_gamma / this->p_to_alpha);
+  NTL::ZZ two_to_beta_mu = NTL::power2_ZZ(this->beta * this->mu);
+  NTL::ZZ two_to_rho_minus_beta_mu =
+      NTL::power2_ZZ(this->rho - this->beta * this->mu);
+  NTL::ZZ r_noise = NTL::RandomBnd(two_to_rho_minus_beta_mu);
+
+  NTL::ZZ delta = NTL::RandomBnd(two_to_beta_mu);
   NTL::ZZ ciphertext =
       (delta * this->p_to_alpha + message + r_noise * this->q0_to_beta) %
       this->x0;

@@ -13,6 +13,7 @@ public:
   long lambda;
   long eta;
   long gamma;
+  long rho;
   long tau;
   long pi;
   u_int64_t config;
